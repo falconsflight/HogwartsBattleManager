@@ -10,6 +10,7 @@ import DropdownComponent from '../components/DropdownComponent';
 
 function SetupPage({ navigation }) {
     const [checkBoxSelected, setCheckBoxSelected] = useState([]);
+    const [year, setYear] = useState(1);
     const charactersJson = require('../Characters.json');
     const years = [
         {label: '1', value: 1},
@@ -25,7 +26,7 @@ function SetupPage({ navigation }) {
       <View style={{ flex: 1, alignItems: 'stretch'}}>
         <View style={{ flex: 2}}>
             <Text style={styles.text}>Select Hogwarts Year</Text>
-            <DropdownComponent data={years} dropdownLabel="Year"/>
+            <DropdownComponent data={years} dropdownLabel="Year" setSelection={setYear}/>
         </View>
         <View style={{ flex: 2}}>
             <Text style={styles.text}>Select Characters</Text>
@@ -37,7 +38,7 @@ function SetupPage({ navigation }) {
             onPress={() => {
                 navigation.navigate('Game', {
                     characters: checkBoxSelected,
-                    year: 1
+                    year: year
                 });
             }}
             />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
-const DropdownComponent = ({data, dropdownLabel}) => {
+const DropdownComponent = ({data, dropdownLabel, setSelection}) => {
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
@@ -38,6 +38,7 @@ const DropdownComponent = ({data, dropdownLabel}) => {
           onBlur={() => setIsFocus(false)}
           onChange={item => {
             setValue(item.value);
+            setSelection(item.value);
             setIsFocus(false);
           }}
         />

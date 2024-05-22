@@ -34,7 +34,12 @@ function SetupPage({ navigation }) {
         <View style={{ flex: 4, marginTop: 5}}>
             <Button
             title="Play"
-            onPress={() => navigation.popToTop()}
+            onPress={() => {
+                navigation.navigate('Game', {
+                    characters: checkBoxSelected,
+                    year: 1
+                });
+            }}
             />
         </View>
         {

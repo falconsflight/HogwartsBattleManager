@@ -1,0 +1,106 @@
+{
+    "1" : [
+        {
+            "name": "Alohomora",
+            "description": "",
+            "count": 7,
+            "type": "Spell"
+        },
+        {
+            "name": "Cloak of Invisibility",
+            "description": "",
+            "count": 1,
+            "type": "Item"
+        },
+        {
+            "name": "Firebolt",
+            "description": "",
+            "count": 1,
+            "type": "Item"
+        },
+        {
+            "name": "Hedwig",
+            "description": "",
+            "count": 1,
+            "type": "Ally"
+        }
+    ],
+    "2" : [
+        {
+            "name": "Alohomora",
+            "description": "",
+            "count": 7,
+            "type": "Spell"
+        },
+        {
+            "name": "Time Turner",
+            "description": "",
+            "count": 1,
+            "type": "Item"
+        },
+        {
+            "name": "Tales of Beatle and the Bard",
+            "description": "",
+            "count": 1,
+            "type": "Item"
+        },
+        {
+            "name": "Crookshanks",
+            "description": "",
+            "count": 1,
+            "type": "Ally"
+        }
+    ],
+    "3" : [
+        {
+            "name": "Alohomora",
+            "description": "",
+            "count": 7,
+            "type": "Spell"
+        },
+        {
+            "name": "Bertie Bott's Every Flavor Beans",
+            "description": "",
+            "count": 1,
+            "type": "Item"
+        },
+        {
+            "name": "Cleansweep",
+            "description": "",
+            "count": 1,
+            "type": "Item"
+        },
+        {
+            "name": "Pidgewigen",
+            "description": "",
+            "count": 1,
+            "type": "Ally"
+        }
+    ],
+    "4" : [
+        {
+            "name": "Alohomora",
+            "description": "",
+            "count": 7,
+            "type": "Spell"
+        },
+        {
+            "name": "Remebrall",
+            "description": "",
+            "count": 1,
+            "type": "Item"
+        },
+        {
+            "name": "Mandrake Root",
+            "description": "",
+            "count": 1,
+            "type": "Item"
+        },
+        {
+            "name": "Trevor",
+            "description": "",
+            "count": 1,
+            "type": "Ally"
+        }
+    ]
+}

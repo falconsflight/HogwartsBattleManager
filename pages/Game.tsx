@@ -62,40 +62,12 @@ const GamePage = ({ route, navigation}) => {
       return deck;
     };
     
-    //Move all of this setup inside of Player
-    //Need to pass in character information
     function SetupPlayers(characters: number[]){
-      const starterCards = require('../lib/StarterCards.json');
-      return characters.map((characterId) => CreatePlayer(characterId, starterCards[characterId]));
+      return characters.map((characterId) => CreatePlayer(characterId));
     }
     
-    function CreatePlayer(characterId: number, starterCards:[]){
-      let name = charactersData[characterId-1].name;
-      let startingDeck = CreatePlayerDeck(starterCards);
-      return <Player name={name} startingDeck={startingDeck}></Player>
-    }
-    
-    function CreatePlayerDeck(starterCards:[]){
-      let deck = [];
-      let i = 0;
-      starterCards.forEach((card) => {
-        if(card.count > 1){
-          for (let i=0; i< card.count; i++){
-            deck.push(CreateCard(card.name, card.description, card.type, 0));
-          }
-        }else{
-          deck.push(CreateCard(card.name, card.description, card.type, 0));
-        }
-        });
-      return shuffle(deck);
-    }
-    
-    function CreateCard(name: string, description: string, type:string, cost: number){
-        return (
-          <>
-          <Card name={name} description={description} type={type} cost={cost}></Card>
-          </>
-        )
+    function CreatePlayer(characterId: number){
+      return <><Player character={charactersData[characterId-1]}></Player></>
     }
 }
 

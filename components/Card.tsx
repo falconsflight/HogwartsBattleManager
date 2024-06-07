@@ -8,27 +8,41 @@ Things on a card:
 - Description
 */
 
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import * as Colors from '../lib/Colors'
 
 //Use later instead of individual parameters
 type CardProps = {
+    id: string,
     name: string,
     description: string,
     type: string,
-    cost: number
+    cost: number,
+    discardFn: Function
 }
 
-const Card = ({name, description, type, cost}: {name: string, description: string, type: string, cost: number}) => {
+const Card = (props: CardProps) => {
     return(
-        <View style={[styles.playerCard, {backgroundColor: GetColorForType(type)}]}>
+        <TouchableOpacity onPress={() => props.discardFn(props.id)}>
+        <View id={props.id} style={[styles.playerCard, {backgroundColor: GetColorForType(props.type)}]}>
             <Text style={styles.nameText}>
-                {name}
+                {props.name}
             </Text>
-            <Text>{description}</Text>
-            <Text>{cost}</Text>
+            <Text>{props.description}</Text>
+            {showCost(props.cost)}
+            
         </View>
+        </TouchableOpacity>
     );
+}
+
+const showCost = (cost: number) =>{
+    if (cost > 0) {
+        return (
+            <Text>{cost}</Text>
+        );
+      }
+      return null;
 }
 
 const GetColorForType = (type: string) => {

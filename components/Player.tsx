@@ -1,12 +1,3 @@
-/*
-Things on a card:
-- Type
-- Image (might not be necessary here)
-- Color
-- Name
-- Cost
-- Description
-*/
 import React, {useState} from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ToastAndroid, Button } from 'react-native'
 import * as Colors from '../lib/Colors'

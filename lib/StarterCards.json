@@ -2,105 +2,121 @@
     "1" : [
         {
             "name": "Alohomora",
-            "description": "",
+            "description": "Gain 1 🪙.",
             "count": 7,
-            "type": "Spell"
+            "type": "Spell",
+            "cost": 0
         },
         {
-            "name": "Cloak of Invisibility",
-            "description": "",
+            "name": "Invisibility Cloak",
+            "description": "Gain 1 🪙.\nIf this is in your hand, you can't lose more than 1 ❤️ from each Dark Arts event or Villain.",
             "count": 1,
-            "type": "Item"
+            "type": "Item",
+            "cost": 0
         },
         {
             "name": "Firebolt",
-            "description": "",
+            "description": "Gain 1 ⚡.\nIf you also defeat a Villain, also gain 1 🪙.",
             "count": 1,
-            "type": "Item"
+            "type": "Item",
+            "cost": 0
         },
         {
             "name": "Hedwig",
-            "description": "",
+            "description": "Choose one:\nGain 1 ⚡; or gain 2 ❤️.",
             "count": 1,
-            "type": "Ally"
+            "type": "Ally",
+            "cost": 0
         }
     ],
     "2" : [
         {
             "name": "Alohomora",
-            "description": "",
+            "description": "Gain 1 🪙.",
             "count": 7,
-            "type": "Spell"
+            "type": "Spell",
+            "cost": 0
         },
         {
             "name": "Time Turner",
-            "description": "",
+            "description": "Gain 1 🪙.\nYou may put Spells you acquire on top of your deck instead of in your discard pile.",
             "count": 1,
-            "type": "Item"
+            "type": "Item",
+            "cost": 0
         },
         {
-            "name": "Tales of Beatle and the Bard",
-            "description": "",
+            "name": "The Tales of Beedle the Bard",
+            "description": "Choose one:\nGain 2 🪙; or ALL Heroes gain 1 🪙.",
             "count": 1,
-            "type": "Item"
+            "type": "Item",
+            "cost": 0
         },
         {
             "name": "Crookshanks",
-            "description": "",
+            "description": "Choose one:\nGain 1 ⚡; or gain 2 ❤️.",
             "count": 1,
-            "type": "Ally"
+            "type": "Ally",
+            "cost": 0
         }
     ],
     "3" : [
         {
             "name": "Alohomora",
-            "description": "",
+            "description": "Gain 1 🪙.",
             "count": 7,
-            "type": "Spell"
+            "type": "Spell",
+            "cost": 0
         },
         {
-            "name": "Bertie Bott's Every Flavor Beans",
-            "description": "",
+            "name": "Bertie Bott's Every-Flavour Beans™",
+            "description": "Gain 1 🪙.\nFor each Ally played this turn, gain 1 ⚡.",
             "count": 1,
-            "type": "Item"
+            "type": "Item",
+            "cost": 0
         },
         {
-            "name": "Cleansweep",
-            "description": "",
+            "name": "Cleansweep 11",
+            "description": "Gain 1 ⚡.\nIf you also defeat a Villain, also gain 1 🪙.",
             "count": 1,
-            "type": "Item"
+            "type": "Item",
+            "cost": 0
         },
         {
-            "name": "Pidgewigen",
-            "description": "",
+            "name": "Pigwidgeon",
+            "description": "Choose one:\nGain 1 ⚡; or gain 2 ❤️.",
             "count": 1,
-            "type": "Ally"
+            "type": "Ally",
+            "cost": 0
         }
     ],
     "4" : [
         {
             "name": "Alohomora",
-            "description": "",
+            "description": "Gain 1 🪙.",
             "count": 7,
-            "type": "Spell"
+            "type": "Spell",
+            "cost": 0
         },
         {
-            "name": "Remebrall",
-            "description": "",
+            "name": "Remebrall™",
+            "description": "Gain 1 🪙.\nIf you discard this, gain 2 🪙",
             "count": 1,
-            "type": "Item"
+            "type": "Item",
+            "cost": 0
         },
         {
-            "name": "Mandrake Root",
-            "description": "",
+            "name": "Mandrake",
+            "description": "Choose one:\nGain 1 ⚡; or any one Hero gains 2 ❤️.",
             "count": 1,
-            "type": "Item"
+            "type": "Item",
+            "cost": 0
         },
         {
             "name": "Trevor",
-            "description": "",
+            "description": "Choose one:\nGain 1 ⚡; or gain 2 ❤️.",
             "count": 1,
-            "type": "Ally"
+            "type": "Ally",
+            "cost": 0
         }
     ]
 }

@@ -28,9 +28,13 @@ const Card = (props: CardProps) => {
             <Text style={styles.nameText}>
                 {props.name}
             </Text>
-            <Text>{props.description}</Text>
+            {/* Add unique background here so that text is easily viewable?*/}
+            {/* Move description to a modal onlongpress?*/}
+            <Text style={styles.descriptionText}>
+                {props.description}
+            </Text>
             {showCost(props.cost)}
-            
+            {/* Add "Spell/Item/Ally plate here?*/}
         </View>
         </TouchableOpacity>
     );
@@ -68,6 +72,10 @@ const styles = StyleSheet.create({
     nameText:{
         textAlign: 'center',
         fontWeight: 'bold'
+    },
+    descriptionText:{
+        textAlign: 'center',
+        backgroundColor: Colors.CardDescription
     }
 });
 

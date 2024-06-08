@@ -5,19 +5,11 @@ import {
   Text,
   View
 } from 'react-native';
-import Card from '../components/Card';
 import Player from '../components/Player';
-
-/*
-TODO:
-- Card
-- Deck (array of cards)
-- Pile (draw, discard)
-- Draw action
-- Discard action
-- Shuffle
-- Load cards from json file
-*/
+import {createDeck, shuffleCards} from '../lib/UtilityFunctions';
+import { CardProps } from '../models/CardProps';
+import Store from '../components/Store';
+import Cards from '../lib/Cards';
 
 const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
@@ -26,13 +18,18 @@ const GamePage = ({ route, navigation}) => {
     const charactersData = charactersJson.characters;
     const [ currentPlayer, setCurrentPlayer ] = useState(0);
     const players = SetupPlayers(characters);
+    const store = CreateStore(year);
     
     return (
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Your selected characters are: {JSON.stringify(characters)}</Text>
-          <Text>Your selected year is: {year}</Text>
-          <Text>{charactersData[characters[currentPlayer]-1].name}'s turn {currentPlayer}</Text>
+          <View>
+            <Text>Game Details:</Text>
+            <Text>Your selected characters are: {JSON.stringify(characters)}</Text>
+            <Text>Your selected year is: {year}</Text>
+          </View>
+          {store}
+          <Text>{GetCharacterName(characters[currentPlayer]-1)}'s turn</Text>
           <Button
             title="End Turn"
             onPress={() => {EndTurn()}}
@@ -42,8 +39,18 @@ const GamePage = ({ route, navigation}) => {
       </ScrollView>
     );
 
+    function GetCharacterNames(ids: number[]){
+      let names = "";
+      ids.map((id) => GetCharacterName(id));
+      return "";
+    }
+
+    function GetCharacterName(characterId: number){
+      return charactersData[characterId].name;
+    }
+
     function EndTurn(){
-      //reduce current player's hand to zero, draw 5 cards, shuffle discards if necessary, update
+      //In the future: reduce current player's hand to zero, draw 5 cards, shuffle discards if necessary, update
       if((playerCount - 1) == currentPlayer){
         setCurrentPlayer(0);
       }else{
@@ -51,16 +58,20 @@ const GamePage = ({ route, navigation}) => {
       }
     }
 
-    function shuffle(deck: []){
-      let i = deck.length - 1;
-      for (; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = deck[i];
-        deck[i] = deck[j];
-        deck[j] = temp;
+    function CreateStore(year: number){
+      let i = 1;
+      let deck: CardProps[][] = [];
+      for(;i <= year; i++){
+        deck.push(createDeck(Cards.hogwartsCards[i]))
       }
-      return deck;
-    };
+      let finalDeck = shuffleCards(deck.flat());
+      
+      return <Store cards={finalDeck} acquireFn={acquireCard}></Store>
+    }
+
+    function acquireCard(){
+
+    }
     
     function SetupPlayers(characters: number[]){
       return characters.map((characterId) => CreatePlayer(characterId));

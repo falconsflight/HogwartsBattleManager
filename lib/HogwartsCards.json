@@ -1,0 +1,160 @@
+{
+    "1" : [
+        {
+            "name": "Wingardium Leviosa!",
+            "description": "Gain 1 🪙.\nYou may put Items you acquire on top of your deck instead of in your discard pile.",
+            "count": 3,
+            "type": "Spell",
+            "cost": 2
+        },
+        {
+            "name": "Reparo!",
+            "description": "Choose one:\nGain 2 🪙 or draw a card.",
+            "count": 6,
+            "type": "Spell",
+            "cost": 3
+        },
+        {
+            "name": "Incendio!",
+            "description": "Gain 1 ⚡.\nDraw a card.",
+            "count": 4,
+            "type": "Spell",
+            "cost": 4
+        },
+        {
+            "name": "Lumos!",
+            "description": "ALL Heroes draw a card.",
+            "count": 2,
+            "type": "Spell",
+            "cost": 4
+        },
+        {
+            "name": "Descendo!",
+            "description": "Gain 2 ⚡.",
+            "count": 2,
+            "type": "Spell",
+            "cost": 5
+        },
+        {
+            "name": "Essence of Dittany",
+            "description": "Any one Hero gains 2 ❤️.",
+            "count": 4,
+            "type": "Item",
+            "cost": 2
+        },
+        {
+            "name": "Quidditch™ Gear",
+            "description": "Gain 1 ⚡ and 1 ❤️.",
+            "count": 4,
+            "type": "Item",
+            "cost": 3
+        },
+        {
+            "name": "Sorting Hat™",
+            "description": "Gain 2 🪙.\nYou may put Allies that you acquire on top of your deck instead of in your discard pile.",
+            "count": 1,
+            "type": "Item",
+            "cost": 4
+        },
+        {
+            "name": "Golden Snitch™",
+            "description": "Gain 2 🪙.\nDraw a card.",
+            "count": 1,
+            "type": "Item",
+            "cost": 5
+        },
+        {
+            "name": "Oliver Wood",
+            "description": "Gain 1 ⚡.\nIf you defeat a Villain, any one Hero gains 2 ❤️.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 3
+        },
+        {
+            "name": "Rubeus Hagrid™",
+            "description": "Gain 1 ⚡.\nALL Heroes gain 1 ❤️.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "Albus Dumbledore™",
+            "description": "ALL Heroes gain 1 ⚡, 1 🪙, 1 ❤️, and draw a card.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 8
+        }
+    ],
+    "2" : [
+        {
+            "name": "Finite!",
+            "description": "Remove 1 🛑 from the Location.",
+            "count": 2,
+            "type": "Spell",
+            "cost": 3
+        },
+        {
+            "name": "Expelliarmus!",
+            "description": "Gain 2 ⚡.\nDraw a card.",
+            "count": 2,
+            "type": "Spell",
+            "cost": 6
+        },
+        {
+            "name": "Polyjuice Potion™",
+            "description": "Choose an Ally you have played this turn. You may copy the effects of that Ally.",
+            "count": 2,
+            "type": "Item",
+            "cost": 3
+        },
+        {
+            "name": "Nimbus Two Thousand and One",
+            "description": "Gain 2 ⚡.\nIf you defeat a Villain, also gain 2 🪙.",
+            "count": 2,
+            "type": "Item",
+            "cost": 5
+        },
+        {
+            "name": "Gilderoy Lockhart™",
+            "description": "Draw a card, then discard any one card.\nIf you discard this, draw a card.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 2
+        },
+        {
+            "name": "Dobby™ the House-Elf",
+            "description": "Remove 1 🛑 from the Location.\nDraw a card.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "Ginny Weasley™",
+            "description": "Gain 1 ⚡ and 1 🪙.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "Fawkes™ the Phoenix",
+            "description": "Choose one:\nGain 2 ⚡; or ALL Heroes gain 2 ❤️.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 5
+        },
+        {
+            "name": "Arthur Weasley",
+            "description": "ALL Heroes gain 2 🪙.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 6
+        },
+        {
+            "name": "Molly Weasley",
+            "description": "ALL Heroes gain 1 🪙 and 2 ❤️.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 6
+        }
+    ]
+}

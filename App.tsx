@@ -14,6 +14,7 @@ import HomePage from './pages/Home';
 import SetupPage from './pages/Setup';
 import ProjectTemplatePage from './pages/NewReactNativeTemplate';
 import GamePage from './pages/Game';
+import GalleryPage from './pages/Gallery';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ function App(): React.JSX.Element {
         />
       <Stack.Screen name="Setup" component={SetupPage} />
       <Stack.Screen name="Game" component={GamePage} />
+      <Stack.Screen name="Gallery" component={GalleryPage} />
       <Stack.Screen name="Test" component={ProjectTemplatePage} />
       </Stack.Navigator>
     </NavigationContainer>

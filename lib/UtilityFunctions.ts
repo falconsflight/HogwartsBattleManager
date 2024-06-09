@@ -21,7 +21,7 @@ export function createDeck(cards: CardProps[]){
         returnDeck.push(card);
       }
     });
-    return shuffleCards(returnDeck);
+    return returnDeck;
 };
 
 export function shuffleCards(deck: CardProps[]){

@@ -156,5 +156,190 @@
             "type": "Ally",
             "cost": 6
         }
+    ],
+    "3" : [
+        {
+            "name": "Expecto Patronum!",
+            "description": "Gain 1 ⚡.\n Remove 1 🛑 from the Location.",
+            "count": 2,
+            "type": "Spell",
+            "cost": 5
+        },
+        {
+            "name": "Petrificus Totalus!",
+            "description": "Gain 1 ⚡.\n Choose a Villain. Until the start of your next turn, that Villain's ability does not trigger.(Use the token as a reminder.)",
+            "count": 2,
+            "type": "Spell",
+            "cost": 6
+        },
+        {
+            "name": "Chocolate Frog™",
+            "description": "Any one Hero gains 1 🪙 and 1 ❤️.\nIf you discard this, gain 1 🪙 and 1 ❤️.",
+            "count": 3,
+            "type": "Item",
+            "cost": 2
+        },
+        {
+            "name": "Butterbeer™",
+            "description": "Any two Heros each gain 1 🪙 and 1 ❤️.",
+            "count": 3,
+            "type": "Item",
+            "cost": 3
+        },
+        {
+            "name": "Crystal Ball",
+            "description": "Draw two cards, then discard any one card.",
+            "count": 2,
+            "type": "Item",
+            "cost": 3
+        },
+        {
+            "name": "Marauder's Map™",
+            "description": "Draw 2 cards.\nIf you discard this, ALL Heroes draw a card.",
+            "count": 1,
+            "type": "Item",
+            "cost": 5
+        },
+        {
+            "name": "Sybill Trelawney",
+            "description": "Draw 2 cards, then discard any one card.\nIf you discard a spell, gain 2 🪙.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "Remus Lupin",
+            "description": "Gain 1 ⚡.\nAny one Hero gains 3 ❤️.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "Sirius Black™",
+            "description": "Gain 2 ⚡ and 1 🪙.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 6
+        }
+    ],
+    "4" : [
+        {
+            "name": "Accio!",
+            "description": "Choose one:\nGain 2 🪙; or search your discard pile for an Item and put it in your hand.",
+            "count": 2,
+            "type": "Spell",
+            "cost": 4
+        },
+        {
+            "name": "Protego!",
+            "description": "Gain 1 ⚡ and 1 ❤️.\n If you discard this, gain 1 ⚡ and 1 ❤️.",
+            "count": 3,
+            "type": "Spell",
+            "cost": 5
+        },
+        {
+            "name": "Hogwarts™: A History",
+            "description": "Choose any one of the House Dice to roll.",
+            "count": 6,
+            "type": "Item",
+            "cost": 4
+        },
+        {
+            "name": "Pensieve",
+            "description": "Any two Heroes each gain 1 🪙 and draw a card.",
+            "count": 1,
+            "type": "Item",
+            "cost": 5
+        },
+        {
+            "name": "Triwizard Cup",
+            "description": "Gain 1 ⚡, 1 🪙, and 1 ❤️.",
+            "count": 1,
+            "type": "Item",
+            "cost": 5
+        },
+        {
+            "name": "Fleur Delacour",
+            "description": "Gain 2 🪙.\nIf you play another Ally, also gain 2 ❤️.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "Cedric Diggory",
+            "description": "Gain 1 ⚡.\nRoll the 🟨 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "Viktor Krum",
+            "description": "Gain 2 ⚡.\nIf you defeat a Villain, also gain 1 🪙 and 1 ❤️.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 5
+        },
+        {
+            "name": "Alastor \"Mad-Eye\" Moody",
+            "description": "Gain 2 🪙.\nRemove 1 🛑 from the Location.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 6
+        },
+        {
+            "name": "Pomona Sprout",
+            "description": "Gain 1 🪙.\nAny one Hero gains 2 ❤️.\nRoll the 🟨 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 6
+        },
+        {
+            "name": "Filius Flitwick",
+            "description": "Gain 1 🪙.\nDraw a card.\nRoll the 🟦 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 6
+        },
+        {
+            "name": "Minerva McGonagall™",
+            "description": "Gain 1 🪙 and 1 ⚡.\nRoll the 🟥 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 6
+        },
+        {
+            "name": "Severus Snape™",
+            "description": "Gain 1 ⚡ and 2 ❤️.\nRoll the 🟩 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 6
+        }
+    ],
+    "5" : [
+        {
+            "name": "Finite!",
+            "description": "Remove 1 🛑 from the Location.",
+            "count": 2,
+            "type": "Spell",
+            "cost": 3
+        }
+    ],
+    "6" : [
+        {
+            "name": "Finite!",
+            "description": "Remove 1 🛑 from the Location.",
+            "count": 2,
+            "type": "Spell",
+            "cost": 3
+        }
+    ],
+    "7" : [
+        {
+            "name": "Finite!",
+            "description": "Remove 1 🛑 from the Location.",
+            "count": 2,
+            "type": "Spell",
+            "cost": 3
+        }
     ]
 }

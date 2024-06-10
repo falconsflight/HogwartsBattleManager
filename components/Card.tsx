@@ -28,7 +28,6 @@ const Card = (props: CardProps) => {
             <Text style={styles.nameText}>
                 {props.name}
             </Text>
-            {/* Add unique background here so that text is easily viewable?*/}
             {/* Move description to a modal onlongpress?*/}
             <Text style={styles.descriptionText}>
                 {props.description}
@@ -43,7 +42,7 @@ const Card = (props: CardProps) => {
 const showCost = (cost: number) =>{
     if (cost > 0) {
         return (
-            <Text>{cost}</Text>
+            <Text style={styles.costText}>{cost}</Text>
         );
       }
       return null;
@@ -76,6 +75,14 @@ const styles = StyleSheet.create({
     descriptionText:{
         textAlign: 'center',
         backgroundColor: Colors.CardDescription
+    },
+    costText:{
+        backgroundColor: Colors.CardDescription,
+        height: 20,
+        width: 20,
+        borderWidth: 2,
+        borderRadius: 10,
+        textAlign: 'center'
     }
 });
 

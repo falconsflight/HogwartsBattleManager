@@ -317,29 +317,120 @@
     ],
     "5" : [
         {
-            "name": "Finite!",
-            "description": "Remove 1 🛑 from the Location.",
+            "name": "Stupefy!",
+            "description": "Gain 1 ⚡.\nRemove 1 🛑 from the Location.\nDraw a card.",
             "count": 2,
             "type": "Spell",
-            "cost": 3
+            "cost": 6
+        },
+        {
+            "name": "O.W.L.S",
+            "description": "Gain 2 🪙.\nIf you play two or more spells, also gain 1 ⚡ and 1 ❤️.",
+            "count": 2,
+            "type": "Item",
+            "cost": 4
+        },
+        {
+            "name": "Cho Chang",
+            "description": "Draw three cards, then discard any two cards.\nRoll the 🟦 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "George Weasley",
+            "description": "Gain 1 ⚡.\nIf another Hero has a Weasley in hand, ALL Heroes gain 1 ❤️.\nRoll the 🟥 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "Fred Weasley",
+            "description": "Gain 1 ⚡.\nIf another Hero has a Weasley in hand, ALL Heroes gain 1 🪙.\nRoll the 🟥 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 4
+        },
+        {
+            "name": "Nymphadora Tonks™",
+            "description": "Choose one:\nGain 3 🪙; or gain 2 ⚡; or remove 1 🛑 from the Location.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 5
+        },
+        {
+            "name": "Luna Lovegood™",
+            "description": "Gain 1 🪙.\nIf you play an Item, also gain 1 ⚡.\nRoll the 🟦 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 5
+        },
+        {
+            "name": "Kingsley Shacklebolt™",
+            "description": "Gain 2 ⚡ and 1 ❤️.\nRemove 1 🛑 from the Location.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 7
         }
     ],
     "6" : [
         {
-            "name": "Finite!",
-            "description": "Remove 1 🛑 from the Location.",
+            "name": "Confundus!",
+            "description": "Gain 1 ⚡.\nIf you assign at least 1 ⚡ to each Villain, also remove 1 🛑 from the Location.",
             "count": 2,
             "type": "Spell",
             "cost": 3
+        },
+        {
+            "name": "Bezoar",
+            "description": "Any one Hero gains 3 ❤️. Draw a card.",
+            "count": 2,
+            "type": "Item",
+            "cost": 4
+        },
+        {
+            "name": "Deluminator",
+            "description": "Remove up to 2 🛑 from the Location.",
+            "count": 1,
+            "type": "Item",
+            "cost": 6
+        },
+        {
+            "name": "Advanced Potion-Making",
+            "description": "All Heroes gain 2 ❤️. Then, each Hero at maximum ❤️ gains 1 ⚡ and draws a card.",
+            "count": 1,
+            "type": "Item",
+            "cost": 6
+        },
+        {
+            "name": "Felix Felicis",
+            "description": "Choose two:\nGain 2 ⚡; or gain 2 🪙; or gain 2 ❤️; or draw two cards.",
+            "count": 2,
+            "type": "Item",
+            "cost": 7
+        },
+        {
+            "name": "Elder Wand",
+            "description": "For each Spell played this turn:\nGain 1 ⚡ and 1 ❤️.\n(in addition to the Spell's ability)",
+            "count": 1,
+            "type": "Item",
+            "cost": 7
+        },
+        {
+            "name": "Horace Slughorn",
+            "description": "All Heroes choose one:\nGain 1 🪙 or 1 ❤️.\nRoll the 🟩 Die.",
+            "count": 1,
+            "type": "Ally",
+            "cost": 6
         }
     ],
     "7" : [
         {
-            "name": "Finite!",
-            "description": "Remove 1 🛑 from the Location.",
-            "count": 2,
-            "type": "Spell",
-            "cost": 3
+            "name": "Sword of Gryffindor™",
+            "description": "Gain 2 ⚡.\nRoll the 🟥 Die twice.",
+            "count": 1,
+            "type": "Item",
+            "cost": 7
         }
     ]
 }

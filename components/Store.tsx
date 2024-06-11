@@ -15,10 +15,8 @@ import { StoreProps } from '../models/StoreProps';
 import { CardProps } from '../models/CardProps';
 
 const Store = (props: StoreProps) => {
-    const shelfLimit = 6;
-    const [drawPile, setDrawPile] = useState(props.cards);
-    const [shelf, setShelf] = useState([]);
-
+    let drawPile = props.drawPile;
+    let shelf = props.shelf;
     return(
         <View style={[styles.playerBoard,{ flex: 1, flexWrap: "wrap", flexDirection: "column", padding: 10, justifyContent: 'center', alignItems: 'center'}]}>
             <View style={{flex:1}}>
@@ -27,18 +25,12 @@ const Store = (props: StoreProps) => {
             <View style={{flex:1}}>
             <Button
                 title={"Draw (" + drawPile.length + ")"}
-                onPress={() => {addToShelf()}}
+                onPress={() => {props.drawFn()}}
             />
             </View>
             {shelf.map((card: CardProps) => CreateCard(card))}
         </View>
     );
-
-    function addToShelf(){
-        if(shelf.length < shelfLimit){
-            setShelf([...shelf, drawPile.pop()])
-        }
-    }
 
     function CreateCard(card: CardProps){//might need to add cost to CardProps eventually
         return (
@@ -47,11 +39,6 @@ const Store = (props: StoreProps) => {
           </>
         )
     }
-
-    function toast(message:string){
-      ToastAndroid.showWithGravity(message, ToastAndroid.LONG, ToastAndroid.CENTER);
-    }
-
 }
 const styles = StyleSheet.create({
     playerBoard:{

@@ -1,6 +1,8 @@
 import { CardProps } from "./CardProps"
 
 export type StoreProps = {
-    cards: CardProps[],
+    drawPile: CardProps[],
+    shelf: CardProps[],
+    drawFn: Function,
     acquireFn: Function
 }

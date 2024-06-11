@@ -20,12 +20,6 @@ function GalleryPage({ navigation }) {
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <View style={{ flex: 1, alignItems: 'center'}}>
         <Button
-        title="Back to Home"
-        onPress={() => {
-            navigation.navigate('Home', {});
-        }}
-        />
-        <Button
         title="Harry's Cards"
         onPress={() => {
             getDeckOfCards(Cards.starterCards[1])
@@ -101,7 +95,7 @@ function GalleryPage({ navigation }) {
     }
     function nullFunction(){}
 
-    function CreateCard(card: CardProps){//might need to add cost to CardProps eventually
+    function CreateCard(card: CardProps){
         return (
           <>
           <Card id={card.id} name={card.name} description={card.description} type={card.type} cost={card.cost} discardFn={nullFunction}></Card>

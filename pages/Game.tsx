@@ -34,6 +34,19 @@ const GamePage = ({ route, navigation}) => {
     const [gameDetailsVisible, setGameDetailsVisible] = useState(false);
     const [acquiredCard, setAcquiredCard] = useState({});
     const [,forceUpdate] = useReducer(x => x + 1, 0);
+
+    const renderPlayer = (player: Readonly<PlayerProps>) => {
+      return (
+        <Player 
+        character={player.character} 
+        drawPile={player.drawPile}
+        hand={player.hand}
+        discardPile={player.discardPile}
+        drawFn={player.drawFn}
+        discardFn={player.discardFn}
+        />
+      );
+    }
     
     return (
       <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -48,7 +61,7 @@ const GamePage = ({ route, navigation}) => {
             onPress={() => {EndTurn()}}
           />
           <Store drawPile={storeStock} shelf={storeShelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
-          {players.map((player) => DisplayPlayer(player))}
+          {players.map((player) => renderPlayer(player))}
         </View>
 
         <Modal
@@ -198,19 +211,6 @@ const GamePage = ({ route, navigation}) => {
         player.hand = player.hand.filter((card: CardData) => card.id != id);
       }
       forceUpdate()
-  }
-
-  function DisplayPlayer(player: Readonly<PlayerProps>){//might need to add cost to CardProps eventually
-    return (
-      <Player 
-      character={player.character} 
-      drawPile={player.drawPile}
-      hand={player.hand}
-      discardPile={player.discardPile}
-      drawFn={player.drawFn}
-      discardFn={player.discardFn}
-      />
-    );
   }
 }
 

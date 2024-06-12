@@ -3,15 +3,13 @@ import {
   Text,
   View,
   Button,
-  TouchableOpacity,
   StyleSheet,
   ScrollView
 } from 'react-native';
-import DropdownComponent from '../components/DropdownComponent';
-import { createDeck, shuffleCards } from '../lib/UtilityFunctions';
-import { CardProps } from '../models/CardProps';
+import { createDeck } from '../lib/UtilityFunctions';
 import Cards from '../lib/Cards';
 import Card from '../components/Card';
+import { CardData } from '../models/CardData';
 
 function GalleryPage({ navigation }) {
     const [cardsInGallery, setCardsInGallery] = useState([]);
@@ -28,6 +26,19 @@ function GalleryPage({ navigation }) {
     let game5 = "Game 5 Cards";
     let game6 = "Game 6 Cards";
     let game7 = "Game 7 Cards";
+
+    const renderCard = (card: Readonly<CardData>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
+        return (
+            <Card
+            id={card.id}
+            playerId={playerId}
+            name={card.name}
+            description={card.description}
+            type={card.type}
+            cost={card.cost}
+            discardFn={discardFn}/>
+          )
+    }
 
     return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -105,25 +116,18 @@ function GalleryPage({ navigation }) {
                         padding: 10, 
                         justifyContent: 'center', 
                         alignItems: 'center'}}>
-        {cardsInGallery.map((card) => CreateCard(card))}
+        {cardsInGallery.map((card) => renderCard(card, 0, nullFunction))}
         </View>
       </View>
     </ScrollView>
     );
 
-    function getDeckOfCards(cardSet: CardProps[], selectedDeck: string){
+    function getDeckOfCards(cardSet: CardData[], selectedDeck: string){
       setCardsInGallery(createDeck(cardSet));
       setSelection(selectedDeck);
     }
-    function nullFunction(){}
 
-    function CreateCard(card: CardProps){
-        return (
-          <>
-          <Card id={card.id} name={card.name} description={card.description} type={card.type} cost={card.cost} discardFn={nullFunction}></Card>
-          </>
-        )
-    }
+    function nullFunction(){ /* empty function since there is nothing to do on press of a card in the Gallery */ }
 }
 const styles = StyleSheet.create({
     text: {

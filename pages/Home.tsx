@@ -17,10 +17,10 @@ function HomePage({ navigation }) {
           title="Gallery"
           onPress={() => navigation.navigate('Gallery')}
         />
-        <Button
+        {/* <Button
           title="Test"
           onPress={() => navigation.navigate('Test')}
-        />
+        /> */}
       </View>
     );
 }

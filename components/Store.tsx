@@ -7,8 +7,8 @@ Things on a card:
 - Cost
 - Description
 */
-import React, {useState} from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ToastAndroid, Button } from 'react-native'
+import React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native'
 import * as Colors from '../lib/Colors'
 import Card from './Card';
 import { StoreProps } from '../models/StoreProps';
@@ -17,6 +17,20 @@ import { CardData } from '../models/CardData';
 const Store = (props: StoreProps) => {
     let drawPile = props.drawPile;
     let shelf = props.shelf;
+    
+    const renderCard = (card: Readonly<CardData>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
+        return (
+            <Card
+            id={card.id}
+            playerId={playerId}
+            name={card.name}
+            description={card.description}
+            type={card.type}
+            cost={card.cost}
+            discardFn={discardFn}/>
+          )
+    }
+
     return(
         <View style={[styles.playerBoard,{ flex: 1, flexWrap: "wrap", flexDirection: "column", padding: 10, justifyContent: 'center', alignItems: 'center'}]}>
             <View style={{flex:1}}>
@@ -34,18 +48,10 @@ const Store = (props: StoreProps) => {
                         padding: 10, 
                         justifyContent: 'center', 
                         alignItems: 'center'}}>
-            {shelf.map((card: CardData) => CreateCard(card))}
+            {shelf.map((card: CardData) => renderCard(card, 0, props.acquireFn))}
             </View>
         </View>
     );
-
-    function CreateCard(card: CardData){//might need to add cost to CardProps eventually
-        return (
-          <>
-          <Card id={card.id} name={card.name} description={card.description} type={card.type} cost={card.cost} discardFn={props.acquireFn} playerId={0}></Card>
-          </>
-        )
-    }
 }
 const styles = StyleSheet.create({
     playerBoard:{

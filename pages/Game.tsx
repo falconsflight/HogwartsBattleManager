@@ -14,36 +14,40 @@ import {createDeck, shuffleCards} from '../lib/UtilityFunctions';
 import { CardProps } from '../models/CardProps';
 import Store from '../components/Store';
 import Cards from '../lib/Cards';
+import GameDetailsModal from '../components/GameDetailsModal';
+import { CharacterProps } from '../models/CharacterProps';
+import { PlayerProps } from '../models/PlayerProps';
+import { CardData } from '../models/CardData';
 
 const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
     const playerCount = characters.length;
+    const shelfLimit = 6;
     const charactersJson = require('../Characters.json');
     const charactersData = charactersJson.characters;
-    const [ currentPlayer, setCurrentPlayer ] = useState(0);
-    const players = SetupPlayers(characters);
-    const shelfLimit = 6;
+    const [currentPlayer, setCurrentPlayer] = useState(0);
+    const [players, setPlayers] = useState(SetupPlayers(characters));
     const [storeShelf, setStoreShelf] = useState([]);
     const [storeStock, setStoreStock] = useState(CreateStore(year));
     const [modalVisible, setModalVisible] = useState(false);
-    let acquiredCard = "";
-    storeStock.map((card) => console.log(card.name));
+    const [gameDetailsVisible, setGameDetailsVisible] = useState(false);
+    const [acquiredCard, setAcquiredCard] = useState({});
+    const [test, setTest] = useState(false);
     
     return (
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <View>
-            <Text>Game Details:</Text>
-            <Text>Your selected characters are: {JSON.stringify(characters)}</Text>
-            <Text>Your selected year is: {year}</Text>
-          </View>
+        <Button
+            title="Game Details"
+            onPress={() => {setGameDetailsVisible(true)}}
+          />
           <Store drawPile={storeStock} shelf={storeShelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
           <Text>{GetCurrentPlayerName()}'s turn</Text>
           <Button
             title="End Turn"
             onPress={() => {EndTurn()}}
           />
-            {players}
+            {players.map((player) => DisplayPlayer(player))}
         </View>
 
         <Modal
@@ -56,40 +60,42 @@ const GamePage = ({ route, navigation}) => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Please choose where to place {acquiredCard} for {GetCurrentPlayerName()}</Text>
+            <Text style={styles.modalText}>Please choose where to place {acquiredCard.name} for {GetCurrentPlayerName()}</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Draw pile</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Hand</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => {addCardToCurrentPlayer("Discard"); setModalVisible(!modalVisible)}}>
               <Text style={styles.textStyle}>Discard pile</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => {addCardToCurrentPlayer("Draw"); setModalVisible(!modalVisible)}}>
+              <Text style={styles.textStyle}>Draw Pile</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Cancel</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
+      <GameDetailsModal year={year} characters={GetCharacterNames(characters)} isVisible={gameDetailsVisible} displayFn={setGameDetailsVisible}/>
       </ScrollView>
     );
 
     function GetCurrentPlayerName(){
-      return GetCharacterName(characters[currentPlayer]-1);
+      return GetCharacterName(characters[currentPlayer]);
     }
 
     function GetCharacterNames(ids: number[]){
-      let names = "";
-      ids.map((id) => GetCharacterName(id));
-      return "";
+      let names = ids.map((id) => GetCharacterName(id));
+      let returnValue = "";
+      names.forEach((name) => returnValue = returnValue + " " + name);
+      return returnValue;
     }
 
     function GetCharacterName(characterId: number){
-      return charactersData[characterId].name;
+      return charactersData[characterId-1].name;
     }
 
     function EndTurn(){
@@ -119,19 +125,94 @@ const GamePage = ({ route, navigation}) => {
     }
 
     function acquireCard(id: string){
-      acquiredCard = storeShelf.filter((card: CardProps) => card.id == id)[0];
-      //need to add acquiredCard to player's hand, draw pile, or discard pile
+      let card = storeShelf.filter((card: CardProps) => card.id == id)[0];
+      setAcquiredCard(card);
       setModalVisible(true);
-      setStoreShelf(storeShelf.filter((card: CardProps) => card.id != id));
+    }
+
+    function addCardToCurrentPlayer(whereToPlaceCard: string){
+      let id = characters[currentPlayer];
+      let player = findPlayer(id);
+      if(whereToPlaceCard == "Discard"){
+        player?.discardPile.push(acquiredCard);
+      }else if(whereToPlaceCard == "Draw"){
+        player?.drawPile.push(acquiredCard);
+      }else{
+        player?.hand.push(acquiredCard);
+      }
+      setStoreShelf(storeShelf.filter((card: CardProps) => card.id != acquiredCard.id));
     }
     
     function SetupPlayers(characters: number[]){
+      console.log(""+characters);
       return characters.map((characterId) => CreatePlayer(characterId));
     }
     
     function CreatePlayer(characterId: number){
-      return <><Player character={charactersData[characterId-1]}></Player></>
+      let player : PlayerProps = {
+        character: {
+          id: characterId,
+          name: GetCharacterName(characterId)
+        },
+        drawPile: shuffleCards(createDeck(Cards.starterCards[characterId])),
+        hand: [],
+        discardPile: [],
+        drawFn: drawPlayerCard,
+        discardFn: discardCard
+      };
+      return player;
     }
+
+    function drawPlayerCard(characterId : number){
+      let drawingPlayer = findPlayer(characterId);
+      if (drawingPlayer != undefined){
+        if(drawingPlayer.drawPile.length > 0){
+          drawingPlayer.hand.push(drawingPlayer.drawPile.pop());
+        }else{
+            if(drawingPlayer.discardPile.length < 1){
+                console.log("Unable to draw because draw and discard piles are empty");
+            }else{
+                restoreDrawPile(drawingPlayer);
+                drawingPlayer.hand.push(drawingPlayer.drawPile.pop());
+            }
+        }
+      }
+      setPlayers(players);
+    }
+
+    function DisplayPlayer(player: PlayerProps){//might need to add cost to CardProps eventually
+        return (
+          <>
+          <Player 
+          character={player.character} 
+          drawPile={player.drawPile}
+          hand={player.hand}
+          discardPile={player.discardPile}
+          drawFn={player.drawFn}
+          discardFn={player.discardFn}
+          />
+          </>
+        );
+    }
+
+  function restoreDrawPile(player: PlayerProps){
+      shuffleCards(player.discardPile).map((card) => player.drawPile.push(card));//Does this always put it on top? Might be bad if there is a leftover card on the draw pile? Might be okay though if we force the user to press the draw button always.
+      player.discardPile = [];
+  }
+
+  function discardCard(id: string, characterId: number) {
+      let player = findPlayer(characterId);
+      if(player != undefined){
+        let playedCard = player.hand.filter((card: CardData) => card.id == id);
+        player.discardPile.push(playedCard[0]);
+        player.hand = player.hand.filter((card: CardData) => card.id != id);
+      }
+      setTest(!test);
+  }
+
+  function findPlayer(characterId: number){
+    return players.find((player) => player.character.id == characterId);
+  }
 }
 
 const styles = StyleSheet.create({

@@ -12,7 +12,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, ToastAndroid, Button }
 import * as Colors from '../lib/Colors'
 import Card from './Card';
 import { StoreProps } from '../models/StoreProps';
-import { CardProps } from '../models/CardProps';
+import { CardData } from '../models/CardData';
 
 const Store = (props: StoreProps) => {
     let drawPile = props.drawPile;
@@ -28,14 +28,21 @@ const Store = (props: StoreProps) => {
                 onPress={() => {props.drawFn()}}
             />
             </View>
-            {shelf.map((card: CardProps) => CreateCard(card))}
+            <View style={{flex: 1, 
+                        flexWrap: "wrap", 
+                        flexDirection: "row", 
+                        padding: 10, 
+                        justifyContent: 'center', 
+                        alignItems: 'center'}}>
+            {shelf.map((card: CardData) => CreateCard(card))}
+            </View>
         </View>
     );
 
-    function CreateCard(card: CardProps){//might need to add cost to CardProps eventually
+    function CreateCard(card: CardData){//might need to add cost to CardProps eventually
         return (
           <>
-          <Card id={card.id} name={card.name} description={card.description} type={card.type} cost={card.cost} discardFn={props.acquireFn}></Card>
+          <Card id={card.id} name={card.name} description={card.description} type={card.type} cost={card.cost} discardFn={props.acquireFn} playerId={0}></Card>
           </>
         )
     }

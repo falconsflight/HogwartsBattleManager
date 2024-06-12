@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native'
 import * as Colors from '../lib/Colors'
 import Card from './Card';
@@ -6,6 +6,7 @@ import { PlayerProps } from '../models/PlayerProps';
 import { CardData } from '../models/CardData';
 
 const Player = (props: PlayerProps) => {
+    const [showDiscards, setShowDiscards] = useState(false);
     const name = props.character.name;
 
     return(
@@ -13,22 +14,25 @@ const Player = (props: PlayerProps) => {
             <View style={{flex:1}}>
             <Text style={{fontSize:25}}>{name}</Text>
             </View>
-            <View style={{flex:1}}>
+            <View style={{flex:1, marginBottom: 5}}>
             <Button
                 title={"Draw (" + props.drawPile.length + ")"}
                 onPress={() => {props.drawFn(props.character.id)}}
             />
             </View>
-            {renderHand(props.hand, props.character.id, props.discardFn)}
+            {renderCards(props.hand, props.character.id, props.discardFn)}
             <Button
-                title={"Discards (" + props.discardPile.length + ")"}
-                onPress={() => {/* add logic here for modal to show discards in order*/}}
+                title={"Show Discards (" + props.discardPile.length + ")"}
+                onPress={() => {setShowDiscards(!showDiscards)}}
             />
+            {renderDiscards(showDiscards, props.discardPile, props.character.id, nullFunction)}
         </View>
     );
 }
 
-const renderHand = (hand: Readonly<CardData[]>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
+function nullFunction(){}
+
+const renderCards = (hand: Readonly<CardData[]>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
     if (hand.length > 0) {
         return (
             <View style={[
@@ -45,6 +49,13 @@ const renderHand = (hand: Readonly<CardData[]>, playerId: Readonly<number>, disc
             {hand.map((card) => renderCard(card, playerId, discardFn))}
             </View>
         );
+      }
+      return null;
+}
+
+const renderDiscards = (show: boolean, cards: Readonly<CardData[]>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
+    if (show) {
+        return renderCards(cards, playerId, discardFn);
       }
       return null;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import {
   Alert,
   Button,
@@ -15,7 +15,6 @@ import { CardProps } from '../models/CardProps';
 import Store from '../components/Store';
 import Cards from '../lib/Cards';
 import GameDetailsModal from '../components/GameDetailsModal';
-import { CharacterProps } from '../models/CharacterProps';
 import { PlayerProps } from '../models/PlayerProps';
 import { CardData } from '../models/CardData';
 
@@ -23,8 +22,10 @@ const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
     const playerCount = characters.length;
     const shelfLimit = 6;
+    
     const charactersJson = require('../Characters.json');
     const charactersData = charactersJson.characters;
+    const [turnCount, setTurnCount] = useState(1);
     const [currentPlayer, setCurrentPlayer] = useState(0);
     const [players, setPlayers] = useState(SetupPlayers(characters));
     const [storeShelf, setStoreShelf] = useState([]);
@@ -32,7 +33,7 @@ const GamePage = ({ route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [gameDetailsVisible, setGameDetailsVisible] = useState(false);
     const [acquiredCard, setAcquiredCard] = useState({});
-    const [test, setTest] = useState(false);
+    const [,forceUpdate] = useReducer(x => x + 1, 0);
     
     return (
       <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -41,13 +42,13 @@ const GamePage = ({ route, navigation}) => {
             title="Game Details"
             onPress={() => {setGameDetailsVisible(true)}}
           />
-          <Store drawPile={storeStock} shelf={storeShelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
-          <Text>{GetCurrentPlayerName()}'s turn</Text>
+          <Text style={{fontSize:25}}>{GetCurrentPlayerName()}'s turn</Text>
           <Button
-            title="End Turn"
+            title={"End Turn #"+turnCount}
             onPress={() => {EndTurn()}}
           />
-            {players.map((player) => DisplayPlayer(player))}
+          <Store drawPile={storeStock} shelf={storeShelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
+          {players.map((player) => DisplayPlayer(player))}
         </View>
 
         <Modal
@@ -83,6 +84,10 @@ const GamePage = ({ route, navigation}) => {
       </ScrollView>
     );
 
+    function findPlayer(characterId: number){
+      return players.find((player) => player.character.id == characterId);
+    }
+
     function GetCurrentPlayerName(){
       return GetCharacterName(characters[currentPlayer]);
     }
@@ -105,23 +110,13 @@ const GamePage = ({ route, navigation}) => {
       }else{
         setCurrentPlayer(currentPlayer+1);
       }
+      setTurnCount(turnCount+1);
     }
 
     function addToShelf(){
       if(storeShelf.length < shelfLimit){
           setStoreShelf([...storeShelf, storeStock.pop()])
       }
-    }
-
-    function CreateStore(year: number){
-      let i = 1;
-      let deck: CardProps[][] = [];
-      for(;i <= year; i++){
-        deck.push(createDeck(Cards.hogwartsCards[i]))
-      }
-      let finalDeck = shuffleCards(deck.flat());
-      
-      return finalDeck;
     }
 
     function acquireCard(id: string){
@@ -140,11 +135,21 @@ const GamePage = ({ route, navigation}) => {
       }else{
         player?.hand.push(acquiredCard);
       }
-      setStoreShelf(storeShelf.filter((card: CardProps) => card.id != acquiredCard.id));
+      setStoreShelf(storeShelf.filter((card: CardData) => card.id != acquiredCard.id));
     }
-    
+
+    function CreateStore(year: number){
+      let i = 1;
+      let deck: CardData[][] = [];
+      for(;i <= year; i++){
+        deck.push(createDeck(Cards.hogwartsCards[i]))
+      }
+      let finalDeck = shuffleCards(deck.flat());
+      
+      return finalDeck;
+    }
+
     function SetupPlayers(characters: number[]){
-      console.log(""+characters);
       return characters.map((characterId) => CreatePlayer(characterId));
     }
     
@@ -177,22 +182,7 @@ const GamePage = ({ route, navigation}) => {
             }
         }
       }
-      setPlayers(players);
-    }
-
-    function DisplayPlayer(player: PlayerProps){//might need to add cost to CardProps eventually
-        return (
-          <>
-          <Player 
-          character={player.character} 
-          drawPile={player.drawPile}
-          hand={player.hand}
-          discardPile={player.discardPile}
-          drawFn={player.drawFn}
-          discardFn={player.discardFn}
-          />
-          </>
-        );
+      forceUpdate();
     }
 
   function restoreDrawPile(player: PlayerProps){
@@ -207,11 +197,20 @@ const GamePage = ({ route, navigation}) => {
         player.discardPile.push(playedCard[0]);
         player.hand = player.hand.filter((card: CardData) => card.id != id);
       }
-      setTest(!test);
+      forceUpdate()
   }
 
-  function findPlayer(characterId: number){
-    return players.find((player) => player.character.id == characterId);
+  function DisplayPlayer(player: Readonly<PlayerProps>){//might need to add cost to CardProps eventually
+    return (
+      <Player 
+      character={player.character} 
+      drawPile={player.drawPile}
+      hand={player.hand}
+      discardPile={player.discardPile}
+      drawFn={player.drawFn}
+      discardFn={player.discardFn}
+      />
+    );
   }
 }
 

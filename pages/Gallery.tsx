@@ -15,83 +15,105 @@ import Card from '../components/Card';
 
 function GalleryPage({ navigation }) {
     const [cardsInGallery, setCardsInGallery] = useState([]);
+    const [selection, setSelection] = useState("");
+
+    let harry = "Harry's Cards";
+    let hermione = "Hermione's Cards";
+    let ron = "Ron's Cards";
+    let neville = "Neville's Cards";
+    let game1 = "Game 1 Cards";
+    let game2 = "Game 2 Cards";
+    let game3 = "Game 3 Cards";
+    let game4 = "Game 4 Cards";
+    let game5 = "Game 5 Cards";
+    let game6 = "Game 6 Cards";
+    let game7 = "Game 7 Cards";
 
     return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <View style={{ flex: 1, alignItems: 'center'}}>
         <Button
-        title="Harry's Cards"
+        title={harry}
         onPress={() => {
-            getDeckOfCards(Cards.starterCards[1])
+            getDeckOfCards(Cards.starterCards[1], harry)
         }}
         />
         <Button
-        title="Hermione's Cards"
+        title={hermione}
         onPress={() => {
-            getDeckOfCards(Cards.starterCards[2])
+            getDeckOfCards(Cards.starterCards[2], hermione)
         }}
         />
         <Button
-        title="Ron's Cards"
+        title={ron}
         onPress={() => {
-            getDeckOfCards(Cards.starterCards[3])
+            getDeckOfCards(Cards.starterCards[3], ron)
         }}
         />
         <Button
-        title="Neville's Cards"
+        title={neville}
         onPress={() => {
-            getDeckOfCards(Cards.starterCards[4])
+            getDeckOfCards(Cards.starterCards[4], neville)
         }}
         />
         <Button
-        title="Game 1 Cards"
+        title={game1}
         onPress={() => {
-            getDeckOfCards(Cards.hogwartsCards[1])
+            getDeckOfCards(Cards.hogwartsCards[1], game1)
         }}
         />
         <Button
-        title="Game 2 Cards"
+        title={game2}
         onPress={() => {
-            getDeckOfCards(Cards.hogwartsCards[2])
+            getDeckOfCards(Cards.hogwartsCards[2], game2)
         }}
         />
         <Button
-        title="Game 3 Cards"
+        title={game3}
         onPress={() => {
-            getDeckOfCards(Cards.hogwartsCards[3])
+            getDeckOfCards(Cards.hogwartsCards[3], game3)
         }}
         />
         <Button
-        title="Game 4 Cards"
+        title={game4}
         onPress={() => {
-            getDeckOfCards(Cards.hogwartsCards[4])
+            getDeckOfCards(Cards.hogwartsCards[4], game4)
         }}
         />
         <Button
-        title="Game 5 Cards"
+        title={game5}
         onPress={() => {
-            getDeckOfCards(Cards.hogwartsCards[5])
+            getDeckOfCards(Cards.hogwartsCards[5], game5)
         }}
         />
         <Button
-        title="Game 6 Cards"
+        title={game6}
         onPress={() => {
-            getDeckOfCards(Cards.hogwartsCards[6])
+            getDeckOfCards(Cards.hogwartsCards[6], game6)
         }}
         />
         <Button
-        title="Game 7 Cards"
+        title={game7}
         onPress={() => {
-            getDeckOfCards(Cards.hogwartsCards[7])
+            getDeckOfCards(Cards.hogwartsCards[7], game7)
         }}
         />
+        <Text style={{fontSize: 25, fontWeight: "heavy"}}>{selection}</Text>
+        <View style={{flex: 1, 
+                        flexWrap: "wrap", 
+                        flexDirection: "row", 
+                        padding: 10, 
+                        justifyContent: 'center', 
+                        alignItems: 'center'}}>
         {cardsInGallery.map((card) => CreateCard(card))}
+        </View>
       </View>
     </ScrollView>
     );
 
-    function getDeckOfCards(cardSet: CardProps[]){
+    function getDeckOfCards(cardSet: CardProps[], selectedDeck: string){
       setCardsInGallery(createDeck(cardSet));
+      setSelection(selectedDeck);
     }
     function nullFunction(){}
 

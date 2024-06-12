@@ -10,29 +10,24 @@ Things on a card:
 
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import * as Colors from '../lib/Colors'
-
-//Use later instead of individual parameters
-type CardProps = {
-    id: string,
-    name: string,
-    description: string,
-    type: string,
-    cost: number,
-    discardFn: Function
-}
+import { CardProps } from '../models/CardProps';
 
 const Card = (props: CardProps) => {
     return(
-        <TouchableOpacity onPress={() => props.discardFn(props.id)}>
+        //Maybe we move "Touchable" higher up to Player/Gallery/ect... then you don't have to pass a discard function down
+        <TouchableOpacity onPress={() => props.discardFn(props.id, props.playerId)}>
         <View id={props.id} style={[styles.playerCard, {backgroundColor: GetColorForType(props.type)}]}>
             <Text style={styles.nameText}>
                 {props.name}
             </Text>
             {/* Move description to a modal onlongpress?*/}
-            <Text style={styles.descriptionText}>
-                {props.description}
-            </Text>
-            {showCost(props.cost)}
+            <View style={styles.descriptionBox}>
+                <Text style={styles.descriptionText}>
+                    {props.description}
+                </Text>
+                {showCost(props.cost)}
+            </View>
+            
             {/* Add "Spell/Item/Ally plate here?*/}
         </View>
         </TouchableOpacity>
@@ -66,23 +61,31 @@ const styles = StyleSheet.create({
         padding: 5,
         borderRadius: 5,
         margin: 5,
-        elevation: 10
+        elevation: 10,
+        width: 125,
+        minHeight: 100
     },
     nameText:{
         textAlign: 'center',
         fontWeight: 'bold'
     },
+    descriptionBox:{
+        backgroundColor: Colors.CardDescription,
+        borderRadius: 5,
+        borderWidth: 1,
+    },
     descriptionText:{
         textAlign: 'center',
-        backgroundColor: Colors.CardDescription
+        fontWeight: "semibold"
     },
     costText:{
-        backgroundColor: Colors.CardDescription,
+        margin: 2,
         height: 20,
         width: 20,
         borderWidth: 2,
         borderRadius: 10,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontWeight: 'bold'
     }
 });
 

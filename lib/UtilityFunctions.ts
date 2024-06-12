@@ -1,10 +1,10 @@
-import { CardProps } from "../models/CardProps";
+import { CardData } from "../models/CardData";
 
-//Read in json file and create array of CardProps
-export function createDeck(cards: CardProps[]){
-    let returnDeck: CardProps[] = [];
+//Read in json file and create array of CardData
+export function createDeck(cards: CardData[]){
+    let returnDeck: CardData[] = [];
 
-    cards.forEach((card: CardProps) => {
+    cards.forEach((card: CardData) => {
       if(card.count > 1){
         for (let i=0; i< card.count; i++){
             returnDeck.push({
@@ -24,7 +24,7 @@ export function createDeck(cards: CardProps[]){
     return returnDeck;
 };
 
-export function shuffleCards(deck: CardProps[]){
+export function shuffleCards(deck: CardData[]){
     let i = deck.length - 1;
     for (; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));

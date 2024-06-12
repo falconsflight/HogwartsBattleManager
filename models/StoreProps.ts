@@ -1,8 +1,8 @@
-import { CardProps } from "./CardProps"
+import { CardData } from "./CardData"
 
 export type StoreProps = {
-    drawPile: CardProps[],
-    shelf: CardProps[],
+    drawPile: CardData[],
+    shelf: CardData[],
     drawFn: Function,
     acquireFn: Function
 }

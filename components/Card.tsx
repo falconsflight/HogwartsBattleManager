@@ -62,12 +62,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         margin: 5,
         elevation: 10,
-        width: 125,
+        width: 150,
         minHeight: 100
     },
     nameText:{
         textAlign: 'center',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: "black"
     },
     descriptionBox:{
         backgroundColor: Colors.CardDescription,
@@ -85,7 +87,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         textAlign: 'center',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: "black"
     }
 });
 

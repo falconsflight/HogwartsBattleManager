@@ -167,7 +167,7 @@
         },
         {
             "name": "Petrificus Totalus!",
-            "description": "Gain 1 ⚡.\n Choose a Villain. Until the start of your next turn, that Villain's ability does not trigger.(Use the token as a reminder.)",
+            "description": "Gain 1 ⚡.\n Choose a Villain. Until the start of your next turn, that Villain's ability does not trigger. (Use the token as a reminder.)",
             "count": 2,
             "type": "Spell",
             "cost": 6

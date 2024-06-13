@@ -78,12 +78,12 @@ const GamePage = ({ route, navigation}) => {
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => {addCardToCurrentPlayer("Discard"); setModalVisible(!modalVisible)}}>
-              <Text style={styles.textStyle}>Discard pile</Text>
+              <Text style={styles.textStyle}>{GetCurrentPlayerName()}'s Discard pile</Text>
             </Pressable>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => {addCardToCurrentPlayer("Draw"); setModalVisible(!modalVisible)}}>
-              <Text style={styles.textStyle}>Draw Pile</Text>
+              <Text style={styles.textStyle}>{GetCurrentPlayerName()}'s Draw Pile</Text>
             </Pressable>
             <Pressable
               style={[styles.button, styles.buttonClose]}
@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+    fontSize: 25
   },
 });
 

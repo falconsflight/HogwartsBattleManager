@@ -6,6 +6,7 @@ export type PlayerProps = {
     drawPile: CardData[],
     hand: CardData[],
     discardPile: CardData[],
+    isActive: boolean,
     drawFn: Function,
     discardFn: Function
 }

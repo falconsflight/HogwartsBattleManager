@@ -1,6 +1,7 @@
 export const White = "#ffffff";
 export const Transparent = "#FFFFFF00";
 export const Gray = "#a8a7a5";
+export const InactivePlayer = "#dbdad5";
 export const Spell = "#fc655d"
 export const Item = "#edfc5d";
 export const Ally = "#5d63fc";

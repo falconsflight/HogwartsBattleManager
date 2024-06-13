@@ -42,6 +42,7 @@ const GamePage = ({ route, navigation}) => {
         drawPile={player.drawPile}
         hand={player.hand}
         discardPile={player.discardPile}
+        isActive={player.character.name == GetCurrentPlayerName()}
         drawFn={player.drawFn}
         discardFn={player.discardFn}
         />

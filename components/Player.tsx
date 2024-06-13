@@ -10,10 +10,17 @@ const Player = (props: PlayerProps) => {
     const name = props.character.name;
 
     return(
-        <View style={[styles.playerBoard,{ flex: 1, flexWrap: "wrap", flexDirection: "column", padding: 10, justifyContent: 'center', alignItems: 'center'}]}>
-            <View style={{flex:1}}>
-            <Text style={{fontSize:25}}>{name}</Text>
-            </View>
+        <View style={[styles.playerBoard,
+        { 
+            backgroundColor: props.isActive ? Colors.Gray : Colors.InactivePlayer,
+            flex: 1, 
+            flexWrap: "wrap", 
+            flexDirection: "column", 
+            padding: 10, 
+            justifyContent: 'center', 
+            alignItems: 'center'
+        }]}>
+            {renderName(name, props.isActive)}
             <View style={{flex:1, marginBottom: 5}}>
             <Button
                 title={"Draw (" + props.drawPile.length + ")"}
@@ -31,6 +38,15 @@ const Player = (props: PlayerProps) => {
 }
 
 function nullFunction(){}
+
+const renderName = (name: string, isActive: boolean) =>{
+    let display = isActive ? name + "'s Turn" : name;
+    return(
+        <View style={{flex:1}}>
+            <Text style={{fontSize:25}}>{display}</Text>
+        </View>
+    );
+}
 
 const renderCards = (hand: Readonly<CardData[]>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
     if (hand.length > 0) {
@@ -78,8 +94,7 @@ const styles = StyleSheet.create({
         padding: 5,
         borderRadius: 5,
         margin: 5,
-        elevation: 5,
-        backgroundColor: Colors.Gray
+        elevation: 5
     },
     handView:{
         backgroundColor: Colors.White

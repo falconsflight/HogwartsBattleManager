@@ -14,7 +14,7 @@ function HomePage({ navigation }) {
           onPress={() => navigation.navigate('Setup')}
         />
         <Button
-          title="Gallery"
+          title="Browse Cards"
           onPress={() => navigation.navigate('Gallery')}
         />
         {/* <Button

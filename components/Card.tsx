@@ -1,13 +1,3 @@
-/*
-Things on a card:
-- Type
-- Image (might not be necessary here)
-- Color
-- Name
-- Cost
-- Description
-*/
-
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import * as Colors from '../lib/Colors'
 import { CardProps } from '../models/CardProps';

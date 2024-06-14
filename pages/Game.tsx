@@ -44,6 +44,7 @@ const GamePage = ({ route, navigation}) => {
         discardPile={player.discardPile}
         isActive={player.character.name == GetCurrentPlayerName()}
         drawFn={player.drawFn}
+        drawDiscardFn={player.drawDiscardFn}
         discardFn={player.discardFn}
         />
       );
@@ -176,7 +177,9 @@ const GamePage = ({ route, navigation}) => {
         drawPile: shuffleCards(createDeck(Cards.starterCards[characterId])),
         hand: [],
         discardPile: [],
+        isActive: false,
         drawFn: drawPlayerCard,
+        drawDiscardFn: drawDiscard,
         discardFn: discardCard
       };
       return player;
@@ -212,6 +215,16 @@ const GamePage = ({ route, navigation}) => {
         player.hand = player.hand.filter((card: CardData) => card.id != id);
       }
       forceUpdate()
+  }
+
+  function drawDiscard(id: string, characterId: number) {
+    let player = findPlayer(characterId);
+    if(player != undefined){
+      let playedCard = player.discardPile.filter((card: CardData) => card.id == id);
+      player.hand.push(playedCard[0]);
+      player.discardPile = player.discardPile.filter((card: CardData) => card.id != id);
+    }
+    forceUpdate()
   }
 }
 

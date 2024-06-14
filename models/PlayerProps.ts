@@ -8,5 +8,6 @@ export type PlayerProps = {
     discardPile: CardData[],
     isActive: boolean,
     drawFn: Function,
+    drawDiscardFn: Function,
     discardFn: Function
 }

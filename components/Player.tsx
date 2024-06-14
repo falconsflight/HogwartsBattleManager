@@ -32,12 +32,10 @@ const Player = (props: PlayerProps) => {
                 title={"Show Discards (" + props.discardPile.length + ")"}
                 onPress={() => {setShowDiscards(!showDiscards)}}
             />
-            {renderDiscards(showDiscards, props.discardPile, props.character.id, nullFunction)}
+            {renderDiscards(showDiscards, props.discardPile, props.character.id, props.drawDiscardFn)}
         </View>
     );
 }
-
-function nullFunction(){}
 
 const renderName = (name: string, isActive: boolean) =>{
     let display = isActive ? name + "'s Turn" : name;

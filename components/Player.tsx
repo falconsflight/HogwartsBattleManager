@@ -29,7 +29,10 @@ const Player = (props: PlayerProps) => {
             </View>
             {renderCards(props.hand, props.character.id, props.discardFn)}
             <Button
-                title={"Show Discards (" + props.discardPile.length + ")"}
+                title={(showDiscards ? 
+                    "Hide" : 
+                    "Show")
+                    +" Discards (" + props.discardPile.length + ")"}
                 onPress={() => {setShowDiscards(!showDiscards)}}
             />
             {renderDiscards(showDiscards, props.discardPile, props.character.id, props.drawDiscardFn)}

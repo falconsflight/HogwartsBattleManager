@@ -1,8 +1,162 @@
 {
     "1" : [
         {
-            "name" : "Test",
-            "description" : "Test again"
+            "name" : "Expulso!",
+            "description" : "Active Hero loses 2 ❤️",
+            "count": "3"
+        },
+        {
+            "name" : "Flipendo!",
+            "description" : "Active Hero loses 1 ❤️ and discards a card.",
+            "count": "2"
+        },
+        {
+            "name" : "He-Who-Must-Not-Be-Named",
+            "description" : "Add 1 🛑 to the Location.",
+            "count": "3"
+        }
+        ,
+        {
+            "name" : "Petrification",
+            "description" : "ALL Heroes lose 1 ❤️ and cannot draw extra cards this turn.\n(Active Hero draws 5 new cards at end of turn.)",
+            "count": "2"
+        }
+    ],
+    "2" : [
+        {
+            "name" : "Relashio!",
+            "description" : "ALL Heroes choose one:\nDiscard an Item; or lose 2 ❤️.",
+            "count": "1"
+        },
+        {
+            "name" : "Obliviate!",
+            "description" : "ALL Heroes choose one:\nDiscard an Spell; or lose 2 ❤️.",
+            "count": "1"
+        },
+        {
+            "name" : "Poison",
+            "description" : "ALL Heroes choose one:\nDiscard an Ally; or lose 2 ❤️.",
+            "count": "1"
+        },
+        {
+            "name" : "Hand of Glory",
+            "description" : "Active Hero loses 1 ❤️.\nAdd 1 🛑 to the Location.",
+            "count": "2"
+        }
+    ],
+    "3" : [
+        {
+            "name" : "Tarantallegra!",
+            "description" : "Active Hero loses 1 ❤️ and cannot assign more than 1 ⚡ to each Villain this turn.",
+            "count": "1"
+        },
+        {
+            "name" : "Oppugno!",
+            "description" : "ALL Heroes reveal the top card of their deck:\nHeroes that reveal a card with a value of 1 or more 🪙 discard it and lose 2 ❤️.",
+            "count": "1"
+        },
+        {
+            "name" : "Dementor's Kiss",
+            "description" : "Active Hero loses 2 ❤️ and all other Heroes lose 1 ❤️.",
+            "count": "2"
+        }
+    ],
+    "4" : [
+        {
+            "name" : "Imperio!",
+            "description" : "Active Hero chooses another Hero to lose 2 ❤️.\nReveal an additional Dark Arts event.",
+            "count": "1"
+        },
+        {
+            "name" : "Crucio!",
+            "description" : "Active Hero loses 1 ❤️.\nReveal an additional Dark Arts event.",
+            "count": "1"
+        },
+        {
+            "name" : "Avada Kedavra!",
+            "description" : "Active Hero loses 3 ❤️. If this stuns the Hero, also add 1 additional 🛑 to the Location.\nReveal an additional Dark Arts event.",
+            "count": "1"
+        },
+        {
+            "name" : "Morsmordre!",
+            "description" : "ALL Heroes lose 1 ❤️.\nAdd 1 🛑 to the Location.",
+            "count": "2"
+        },
+        {
+            "name" : "Heir of Slytherin™",
+            "description" : "Roll the 🟩 Die:\n⚡ = ALL Heroes lose 1 ❤️.\n🪙 = Add 1 🛑 to the Location.\n❤️ = Remove 1 ⚡ from all Villains.\n🔲 = ALL Heroes discard a card.",
+            "count": "2"
+        },
+        {
+            "name" : "Regeneration",
+            "description" : "Remove 2 ⚡ from ALL Villains.",
+            "count": "1"
+        }
+    ],
+    "5" : [
+        {
+            "name" : "Crucio!",
+            "description" : "Active Hero loses 1 ❤️.\nReveal an additional Dark Arts event.",
+            "count": "1"
+        },
+        {
+            "name" : "Imperio!",
+            "description" : "Active Hero chooses another Hero to lose 2 ❤️.\nReveal an additional Dark Arts event.",
+            "count": "1"
+        },
+        {
+            "name" : "Avada Kedavra!",
+            "description" : "Active Hero loses 3 ❤️. If this stuns the Hero, also add 1 additional 🛑 to the Location.\nReveal an additional Dark Arts event.",
+            "count": "1"
+        },
+        {
+            "name" : "Morsmordre!",
+            "description" : "ALL Heroes lose 1 ❤️.\nAdd 1 🛑 to the Location.",
+            "count": "1"
+        },
+        {
+            "name" : "Educational Decree",
+            "description" : "For each card with a value of 4 or more 🪙 in hand, active Hero loses 1 ❤️.",
+            "count": "2"
+        },
+        {
+            "name" : "Legilimency",
+            "description" : "ALL Heroes reveal the top card of their deck:\nHeroes that reveal a Spell discard it and lose 2 ❤️.",
+            "count": "1"
+        }
+    ],
+    "6" : [
+        {
+            "name" : "Morsmordre!",
+            "description" : "ALL Heroes lose 1 ❤️.\nAdd 1 🛑 to the Location.",
+            "count": "1"
+        },
+        {
+            "name" : "Sectumsempra!",
+            "description" : "ALL Heroes lose 2 ❤️ and cannot gain ❤️ this turn.",
+            "count": "2"
+        }
+    ],
+    "7" : [
+        {
+            "name" : "Crucio!",
+            "description" : "Active Hero loses 1 ❤️.\nReveal an additional Dark Arts event.",
+            "count": "1"
+        },
+        {
+            "name" : "Imperio!",
+            "description" : "Active Hero chooses another Hero to lose 2 ❤️.\nReveal an additional Dark Arts event.",
+            "count": "1"
+        },
+        {
+            "name" : "Avada Kedavra!",
+            "description" : "Active Hero loses 3 ❤️. If this stuns the Hero, also add 1 additional 🛑 to the Location.\nReveal an additional Dark Arts event.",
+            "count": "1"
+        },
+        {
+            "name" : "Fiendfyre",
+            "description" : "ALL Heroes lose 3 ❤️",
+            "count": "1"
         }
     ]
 }

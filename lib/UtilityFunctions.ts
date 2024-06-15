@@ -1,4 +1,5 @@
 import { CardData } from "../models/CardData";
+import { DarkArtsData } from "../models/DarkArtsData";
 
 //Read in json file and create array of CardData
 export function createDeck(cards: CardData[]){
@@ -22,6 +23,27 @@ export function createDeck(cards: CardData[]){
       }
     });
     return returnDeck;
+};
+
+export function createDarkArtsDeck(cards: DarkArtsData[]){
+  let returnDeck: DarkArtsData[] = [];
+
+  cards.forEach((card: DarkArtsData) => {
+    if(card.count > 1){
+      for (let i=0; i< card.count; i++){
+          returnDeck.push({
+              name: card.name,
+              description: card.description,
+              count: card.count,
+              id: card.name + i
+          });
+      }
+    }else{
+      card.id = card.name;
+      returnDeck.push(card);
+    }
+  });
+  return returnDeck;
 };
 
 export function shuffleCards(deck: CardData[]){

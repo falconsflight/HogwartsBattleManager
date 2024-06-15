@@ -7,6 +7,7 @@ import { CardData } from '../models/CardData';
 
 const Player = (props: PlayerProps) => {
     const [showDiscards, setShowDiscards] = useState(false);
+    const [showTopCard, setShowTopCard] = useState(false);
     const name = props.character.name;
 
     return(
@@ -26,18 +27,36 @@ const Player = (props: PlayerProps) => {
                 title={"Draw (" + props.drawPile.length + ")"}
                 onPress={() => {props.drawFn(props.character.id)}}
             />
+            <Button
+                title={((getShowOrHideText(showTopCard)))+" top card"}
+                onPress={() => {setShowTopCard(!showTopCard)}}
+            />
             </View>
+            {renderTopCard(showTopCard, props.drawPile, props.character.id)}
             {renderCards(props.hand, props.character.id, props.discardFn)}
             <Button
-                title={(showDiscards ? 
-                    "Hide" : 
-                    "Show")
+                title={(getShowOrHideText(showDiscards))
                     +" Discards (" + props.discardPile.length + ")"}
                 onPress={() => {setShowDiscards(!showDiscards)}}
             />
             {renderDiscards(showDiscards, props.discardPile, props.character.id, props.drawDiscardFn)}
         </View>
     );
+}
+
+function getShowOrHideText(flag: boolean){
+    return flag ? "Hide" : "Show";
+}
+
+function nullFunction(){}
+
+const renderTopCard = (showTopCard: boolean, deck: Readonly<CardData[]>, playerId: Readonly<number>) => {
+    if(showTopCard){
+        if(deck.length > 0){
+            return renderCard(deck[deck.length-1], playerId, nullFunction);
+        }
+    }
+    return null;
 }
 
 const renderName = (name: string, isActive: boolean) =>{

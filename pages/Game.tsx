@@ -19,6 +19,7 @@ import { PlayerProps } from '../models/PlayerProps';
 import { CardData } from '../models/CardData';
 import { DarkArtsData } from '../models/DarkArtsData';
 import DarkArtsCard from '../components/DarkArtsCard';
+import AcquireCardModal from '../components/AcquireCardModal';
 
 const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
@@ -33,8 +34,8 @@ const GamePage = ({ route, navigation}) => {
     const [storeShelf, setStoreShelf] = useState([]);
     const [storeStock, setStoreStock] = useState(CreateStore(year));
     const [darkArtsCards, setDarkArtsCards] = useState(CreateDarkArtsCards(year));
-    const [modalVisible, setModalVisible] = useState(false);
     const [gameDetailsVisible, setGameDetailsVisible] = useState(false);
+    const [acquireCardModalVisible, setAcquireCardModalVisible] = useState(false);
     const [acquiredCard, setAcquiredCard] = useState({});
     const [,forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -107,36 +108,18 @@ const GamePage = ({ route, navigation}) => {
           {players.map((player) => renderPlayer(player))}
         </View>
 
-        <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Please choose where to place {acquiredCard.name} for {GetCurrentPlayerName()}</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => {addCardToCurrentPlayer("Discard"); setModalVisible(!modalVisible)}}>
-              <Text style={styles.textStyle}>{GetCurrentPlayerName()}'s Discard pile</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => {addCardToCurrentPlayer("Draw"); setModalVisible(!modalVisible)}}>
-              <Text style={styles.textStyle}>{GetCurrentPlayerName()}'s Draw Pile</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Cancel</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <GameDetailsModal year={year} characters={GetCharacterNames(characters)} isVisible={gameDetailsVisible} displayFn={setGameDetailsVisible}/>
+      <AcquireCardModal
+        cardName={acquiredCard.name}
+        cardId={acquiredCard.id}
+        playerName={GetCurrentPlayerName()}
+        isVisible={acquireCardModalVisible}
+        displayFn={setAcquireCardModalVisible}
+        acquireFn={addCardToCurrentPlayer}/>
+      <GameDetailsModal
+        year={year}
+        characters={GetCharacterNames(characters)}
+        isVisible={gameDetailsVisible}
+        displayFn={setGameDetailsVisible}/>
       </ScrollView>
     );
 
@@ -178,7 +161,7 @@ const GamePage = ({ route, navigation}) => {
     function acquireCard(id: string){
       let card = storeShelf.filter((card: CardProps) => card.id == id)[0];
       setAcquiredCard(card);
-      setModalVisible(true);
+      setAcquireCardModalVisible(true);
     }
 
     function addCardToCurrentPlayer(whereToPlaceCard: string){
@@ -298,51 +281,5 @@ const GamePage = ({ route, navigation}) => {
     forceUpdate();
   }
 }
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    margin: 3
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-    fontSize: 25
-  },
-});
 
 export default GamePage;

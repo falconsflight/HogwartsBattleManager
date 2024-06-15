@@ -1,9 +1,11 @@
 export const White = "#ffffff";
+export const LightBlack = "#313332";
 export const Transparent = "#FFFFFF00";
 export const Gray = "#a8a7a5";
-export const InactivePlayer = "#dbdad5";
+export const LightGray = "#dbdad5";
 export const Spell = "#fc655d"
 export const Item = "#edfc5d";
 export const Ally = "#5d63fc";
 export const CardBack = "#592a03";
 export const CardDescription = "#e9f5c4";
+export const PlayerStunned = "#fc6262";

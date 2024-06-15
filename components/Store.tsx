@@ -1,12 +1,3 @@
-/*
-Things on a card:
-- Type
-- Image (might not be necessary here)
-- Color
-- Name
-- Cost
-- Description
-*/
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native'
 import * as Colors from '../lib/Colors'
@@ -34,7 +25,8 @@ const Store = (props: StoreProps) => {
     return(
         <View style={[styles.playerBoard,{ flex: 1, flexWrap: "wrap", flexDirection: "column", padding: 10, justifyContent: 'center', alignItems: 'center'}]}>
             <View style={{flex:1}}>
-            <Text>Store (Only 6 Cards allowed)</Text>
+            <Text style={styles.title}>Store</Text>
+            <Text>(Only 6 Cards allowed)</Text>
             </View>
             <View style={{flex:1}}>
             <Button
@@ -59,14 +51,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         margin: 5,
         elevation: 5,
-        backgroundColor: Colors.Gray
+        backgroundColor: Colors.LightGray
     },
-    handView:{
-        backgroundColor: Colors.White
-    },
-    nameText:{
+    title:{
+        fontSize: 25,
         textAlign: 'center',
-        fontWeight: 'bold'
+        color: Colors.LightBlack
     }
 });
 export default Store;

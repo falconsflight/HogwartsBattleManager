@@ -1,11 +1,8 @@
 import React, { useReducer, useState } from 'react';
 import {
-  Alert,
   Button,
-  Modal,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   View
 } from 'react-native';
@@ -31,8 +28,7 @@ const GamePage = ({ route, navigation}) => {
     const [turnCount, setTurnCount] = useState(1);
     const [currentPlayer, setCurrentPlayer] = useState(0);
     const [players, setPlayers] = useState(SetupPlayers(characters));
-    const [storeShelf, setStoreShelf] = useState([]);
-    const [storeStock, setStoreStock] = useState(CreateStore(year));
+    const [store, setStore] = useState(CreateStore(year));
     const [darkArtsCards, setDarkArtsCards] = useState(CreateDarkArtsCards(year));
     const [gameDetailsVisible, setGameDetailsVisible] = useState(false);
     const [acquireCardModalVisible, setAcquireCardModalVisible] = useState(false);
@@ -104,7 +100,7 @@ const GamePage = ({ route, navigation}) => {
           </Pressable>
           {renderDarkArts(darkArtsCards.discardPile)}
           </View>
-          <Store drawPile={storeStock} shelf={storeShelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
+          <Store drawPile={store.drawPile} shelf={store.shelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
           {players.map((player) => renderPlayer(player))}
         </View>
 
@@ -149,17 +145,26 @@ const GamePage = ({ route, navigation}) => {
       }else{
         setCurrentPlayer(currentPlayer+1);
       }
+
+      let difference = shelfLimit - store.shelf.length;
+      if(difference > 0){
+        for(let i = 0; i < difference; i++){
+          addToShelf();
+        }
+      }
+
       setTurnCount(turnCount+1);
     }
 
     function addToShelf(){
-      if(storeShelf.length < shelfLimit){
-          setStoreShelf([...storeShelf, storeStock.pop()])
+      if(store.shelf.length < shelfLimit){
+        store.shelf.push(store.drawPile.pop());
       }
+      forceUpdate();
     }
 
     function acquireCard(id: string){
-      let card = storeShelf.filter((card: CardProps) => card.id == id)[0];
+      let card = store.shelf.filter((card: CardProps) => card.id == id)[0];
       setAcquiredCard(card);
       setAcquireCardModalVisible(true);
     }
@@ -174,7 +179,7 @@ const GamePage = ({ route, navigation}) => {
       }else{
         player?.hand.push(acquiredCard);
       }
-      setStoreShelf(storeShelf.filter((card: CardData) => card.id != acquiredCard.id));
+      store.shelf = store.shelf.filter((card: CardData) => card.id != acquiredCard.id);
     }
 
     function CreateStore(year: number){
@@ -185,7 +190,7 @@ const GamePage = ({ route, navigation}) => {
       }
       let finalDeck = shuffleCards(deck.flat());
       
-      return finalDeck;
+      return {drawPile: finalDeck, shelf: []};
     }
 
     function CreateDarkArtsCards(year: number){

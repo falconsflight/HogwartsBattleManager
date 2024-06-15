@@ -1,21 +1,30 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import * as Colors from '../lib/Colors'
-import { CardProps } from '../models/CardProps';
 import { DarkArtsCardProps } from '../models/DarkArtsCardProps';
 
 const DarkArtsCard = (props: DarkArtsCardProps) => {
-    return(
-        <View id={props.id} style={[styles.playerCard]}>
-            <Text style={styles.nameText}>
-                {props.name}
-            </Text>
-            <View style={styles.descriptionBox}>
-                <Text style={styles.descriptionText}>
-                    {props.description}
+    if(props.description == ""){
+        return(
+            <View id={props.id} style={[styles.playerCard]}>
+                <Text style={styles.nameText}>
+                    {props.name}
                 </Text>
             </View>
-        </View>
-    );
+        );
+    }else{
+        return(
+            <View id={props.id} style={[styles.playerCard]}>
+                <Text style={styles.nameText}>
+                    {props.name}
+                </Text>
+                <View style={styles.descriptionBox}>
+                    <Text style={styles.descriptionText}>
+                        {props.description}
+                    </Text>
+                </View>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({

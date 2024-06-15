@@ -24,15 +24,15 @@ const Player = (props: PlayerProps) => {
             {renderName(name, props.isActive)}
             <View style={{flex:1, marginBottom: 5}}>
             <Button
-                title={"Draw (" + props.drawPile.length + ")"}
-                onPress={() => {props.drawFn(props.character.id)}}
-            />
-            <Button
                 title={((getShowOrHideText(showTopCard)))+" top card"}
                 onPress={() => {setShowTopCard(!showTopCard)}}
             />
-            </View>
             {renderTopCard(showTopCard, props.drawPile, props.character.id)}
+            <Button
+                title={"Draw (" + props.drawPile.length + ")"}
+                onPress={() => {props.drawFn(props.character.id)}}
+            />
+            </View>
             {renderCards(props.hand, props.character.id, props.discardFn)}
             <Button
                 title={(getShowOrHideText(showDiscards))

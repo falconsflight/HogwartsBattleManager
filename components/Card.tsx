@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
     },
     descriptionText:{
         textAlign: 'center',
-        fontWeight: "semibold"
+        fontWeight: "semibold",
+        color: Colors.LightBlack
     },
     costText:{
         margin: 2,

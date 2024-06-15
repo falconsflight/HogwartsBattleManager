@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         elevation: 10,
         width: 150,
         minHeight: 100,
-        backgroundColor: "black"
+        backgroundColor: Colors.LightBlack
     },
     nameText:{
         textAlign: 'center',
@@ -51,17 +51,8 @@ const styles = StyleSheet.create({
     },
     descriptionText:{
         textAlign: 'center',
-        fontWeight: "semibold"
-    },
-    costText:{
-        margin: 2,
-        height: 20,
-        width: 20,
-        borderWidth: 2,
-        borderRadius: 10,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        color: "black"
+        fontWeight: "semibold",
+        color: Colors.LightBlack
     }
 });
 

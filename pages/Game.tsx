@@ -10,13 +10,15 @@ import {
   View
 } from 'react-native';
 import Player from '../components/Player';
-import {createDeck, shuffleCards} from '../lib/UtilityFunctions';
+import {createDarkArtsDeck, createDeck, shuffleCards} from '../lib/UtilityFunctions';
 import { CardProps } from '../models/CardProps';
 import Store from '../components/Store';
 import Cards from '../lib/Cards';
 import GameDetailsModal from '../components/GameDetailsModal';
 import { PlayerProps } from '../models/PlayerProps';
 import { CardData } from '../models/CardData';
+import { DarkArtsData } from '../models/DarkArtsData';
+import DarkArtsCard from '../components/DarkArtsCard';
 
 const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
@@ -30,6 +32,8 @@ const GamePage = ({ route, navigation}) => {
     const [players, setPlayers] = useState(SetupPlayers(characters));
     const [storeShelf, setStoreShelf] = useState([]);
     const [storeStock, setStoreStock] = useState(CreateStore(year));
+    const [darkArtsDrawPile, setDarkArtsDrawPile] = useState(CreateDarkArtsDrawPile(year));
+    const [darkArtsDiscardPile, setDarkArtsDiscardPile] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [gameDetailsVisible, setGameDetailsVisible] = useState(false);
     const [acquiredCard, setAcquiredCard] = useState({});
@@ -49,6 +53,16 @@ const GamePage = ({ route, navigation}) => {
         />
       );
     }
+
+    const renderDarkArts = (card: Readonly<DarkArtsData>) => {
+      return (
+        <DarkArtsCard
+        id={card.id}
+        name={card.name}
+        description={card.description}
+        />
+      );
+    }
     
     return (
       <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -62,6 +76,7 @@ const GamePage = ({ route, navigation}) => {
             title={"End Turn #"+turnCount}
             onPress={() => {EndTurn()}}
           />
+          {darkArtsDrawPile.map((card) => renderDarkArts(card))}
           <Store drawPile={storeStock} shelf={storeShelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
           {players.map((player) => renderPlayer(player))}
         </View>
@@ -158,6 +173,17 @@ const GamePage = ({ route, navigation}) => {
       let deck: CardData[][] = [];
       for(;i <= year; i++){
         deck.push(createDeck(Cards.hogwartsCards[i]))
+      }
+      let finalDeck = shuffleCards(deck.flat());
+      
+      return finalDeck;
+    }
+
+    function CreateDarkArtsDrawPile(year: number){
+      let i = 1;
+      let deck: DarkArtsData[][] = [];
+      for(;i <= year; i++){
+        deck.push(createDarkArtsDeck(Cards.darkArtsCards[i]))
       }
       let finalDeck = shuffleCards(deck.flat());
       

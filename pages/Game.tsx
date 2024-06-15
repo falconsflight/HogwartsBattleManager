@@ -32,8 +32,7 @@ const GamePage = ({ route, navigation}) => {
     const [players, setPlayers] = useState(SetupPlayers(characters));
     const [storeShelf, setStoreShelf] = useState([]);
     const [storeStock, setStoreStock] = useState(CreateStore(year));
-    const [darkArtsDrawPile, setDarkArtsDrawPile] = useState(CreateDarkArtsDrawPile(year));
-    const [darkArtsDiscardPile, setDarkArtsDiscardPile] = useState([]);
+    const [darkArtsCards, setDarkArtsCards] = useState(CreateDarkArtsCards(year));
     const [modalVisible, setModalVisible] = useState(false);
     const [gameDetailsVisible, setGameDetailsVisible] = useState(false);
     const [acquiredCard, setAcquiredCard] = useState({});
@@ -54,14 +53,28 @@ const GamePage = ({ route, navigation}) => {
       );
     }
 
-    const renderDarkArts = (card: Readonly<DarkArtsData>) => {
+    const renderDarkArts = (deck: Readonly<DarkArtsData[]>) => {
+      if(deck.length > 0){
+        let card = deck[deck.length - 1]
+        return (
+          <DarkArtsCard
+          id={card.id}
+          name={card.name}
+          description={card.description}
+          />
+        );
+      }
+      return null;
+    }
+
+    const renderDarkArtsCard = (card: Readonly<DarkArtsData>) => {
       return (
-        <DarkArtsCard
-        id={card.id}
-        name={card.name}
-        description={card.description}
-        />
-      );
+          <DarkArtsCard
+          id={card.id}
+          name={card.name}
+          description={card.description}
+          />
+        );
     }
     
     return (
@@ -76,7 +89,20 @@ const GamePage = ({ route, navigation}) => {
             title={"End Turn #"+turnCount}
             onPress={() => {EndTurn()}}
           />
-          {darkArtsDrawPile.map((card) => renderDarkArts(card))}
+          <View style={{ 
+                    flex: 1, 
+                    flexWrap: "wrap", 
+                    flexDirection: "row", 
+                    padding: 10, 
+                    justifyContent: 'center', 
+                    alignItems: 'center'
+                }
+            }>
+          <Pressable onPress={() => drawDarkArtsCard()}>
+          {renderDarkArtsCard({name: "Dark Arts Deck", description: "", id: "darkArtsDraw", count: 1})}
+          </Pressable>
+          {renderDarkArts(darkArtsCards.discardPile)}
+          </View>
           <Store drawPile={storeStock} shelf={storeShelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
           {players.map((player) => renderPlayer(player))}
         </View>
@@ -179,7 +205,7 @@ const GamePage = ({ route, navigation}) => {
       return finalDeck;
     }
 
-    function CreateDarkArtsDrawPile(year: number){
+    function CreateDarkArtsCards(year: number){
       let i = 1;
       let deck: DarkArtsData[][] = [];
       for(;i <= year; i++){
@@ -187,7 +213,7 @@ const GamePage = ({ route, navigation}) => {
       }
       let finalDeck = shuffleCards(deck.flat());
       
-      return finalDeck;
+      return {drawPile: finalDeck, discardPile: []};
     }
 
     function SetupPlayers(characters: number[]){
@@ -233,6 +259,11 @@ const GamePage = ({ route, navigation}) => {
       player.discardPile = [];
   }
 
+  function restoreDarkArtsDeck(){
+    shuffleCards(darkArtsCards.discardPile).map((card) => darkArtsCards.drawPile.push(card));
+    darkArtsCards.discardPile = [];
+  }
+
   function discardCard(id: string, characterId: number) {
       let player = findPlayer(characterId);
       if(player != undefined){
@@ -251,6 +282,20 @@ const GamePage = ({ route, navigation}) => {
       player.discardPile = player.discardPile.filter((card: CardData) => card.id != id);
     }
     forceUpdate()
+  }
+
+  function drawDarkArtsCard(){
+    if(darkArtsCards.drawPile.length > 0){
+      darkArtsCards.discardPile.push(darkArtsCards.drawPile.pop());
+    }else{
+        if(darkArtsCards.discardPile.length < 1){
+            console.log("Unable to draw because draw and discard piles are empty");
+        }else{
+            restoreDarkArtsDeck();
+            darkArtsCards.discardPile.push(darkArtsCards.drawPile.pop());
+          }
+    }
+    forceUpdate();
   }
 }
 

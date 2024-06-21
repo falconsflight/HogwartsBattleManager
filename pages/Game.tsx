@@ -79,6 +79,47 @@ const GamePage = ({ route, navigation}) => {
           />
         );
     }
+
+    const renderAllHeroesButtons = () => {
+      return (
+        <View style={{flexDirection: 'row'}}>
+            <View style={{flex: 1,
+              flexDirection: "column", 
+              padding: 10, 
+              justifyContent: 'center', 
+              alignItems: 'center'}}>
+              <Text>❤️ All</Text>
+              <View style={{flex: 1, flexDirection: "row"}}>
+                <Button
+                  title="+1"
+                  onPress={() => {UpdateAllHeroesHealth(1)}}
+                />
+                <Button
+                  title="-1"
+                  onPress={() => {UpdateAllHeroesHealth(-1)}}
+                />
+              </View>
+            </View>
+            <View style={{flex: 1,
+            flexDirection: "column", 
+            padding: 10, 
+            justifyContent: 'center', 
+            alignItems: 'center'}}>
+              <Text>🪙 All</Text>
+              <View style={{flex: 1, flexDirection: "row"}}>
+                <Button
+                  title="+1"
+                  onPress={() => {UpdateAllHeroesInfluence(1)}}
+                />
+                <Button
+                  title="-1"
+                  onPress={() => {UpdateAllHeroesInfluence(-1)}}
+                />
+              </View>
+            </View>
+          </View>
+      );
+    }
     
     return (
       <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -87,12 +128,6 @@ const GamePage = ({ route, navigation}) => {
             title="Game Details"
             onPress={() => {setGameDetailsVisible(true)}}
           />
-          <Text style={{fontSize:25}}>{GetCurrentPlayerName()}'s turn</Text>
-          <Button
-            title={"End Turn #"+turnCount}
-            onPress={() => {EndTurn()}}
-          />
-          
           <Store drawPile={store.drawPile} shelf={store.shelf} credit={GetCurrentPlayer()?.influence ?? 0} drawFn={addToShelf} acquireFn={acquireCard}></Store>
           <View style={{ 
                     flex: 1, 
@@ -104,10 +139,15 @@ const GamePage = ({ route, navigation}) => {
                 }
             }>
           <Pressable onPress={() => drawDarkArtsCard()}>
-          {renderDarkArtsCard({name: "Dark Arts Deck", description: "", id: "darkArtsDraw", count: 1})}
+          {renderDarkArtsCard({name: "Dark Arts Deck", description: darkArtsCards.drawPile.length, id: "darkArtsDraw", count: 1})}
           </Pressable>
           {renderDarkArts(darkArtsCards.discardPile)}
           </View>
+          {renderAllHeroesButtons()}
+          <Button
+            title={"End Turn #"+turnCount}
+            onPress={() => {EndTurn()}}
+          />
           {renderPlayer(players.filter((player) => IsPlayerActive(player))[0])}
           {players.filter((player) => !IsPlayerActive(player)).map((player) => renderPlayer(player))}
         </View>
@@ -129,6 +169,27 @@ const GamePage = ({ route, navigation}) => {
 
     function IsPlayerActive(player: PlayerProps){
       return player.character.name == GetCurrentPlayerName();
+    }
+
+    function UpdateAllHeroesHealth(delta: number){
+      players.map((player) => player.health = getNewHealth(player.health, delta));
+      forceUpdate();
+    }
+
+    function getNewHealth(currentHealth: number, delta: number){
+      let newHealth = currentHealth + delta;
+      if(newHealth > 10){
+        return 10;
+      }
+      if(newHealth < 0){
+        return 0;
+      }
+      return newHealth;
+    }
+
+    function UpdateAllHeroesInfluence(delta: number){
+      players.map((player) => player.influence = player.influence + delta >= 0 ? player.influence + delta : 0);
+      forceUpdate();
     }
 
     function UpdateHealth(characterId: number, newValue: number){

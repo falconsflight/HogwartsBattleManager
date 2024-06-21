@@ -4,14 +4,71 @@ import * as Colors from '../lib/Colors'
 import Card from './Card';
 import { PlayerProps } from '../models/PlayerProps';
 import { CardData } from '../models/CardData';
+import TouchableCard from './TouchableCard';
+import { nullFunction } from '../lib/UtilityFunctions';
 
 const Player = (props: PlayerProps) => {
     const [showDiscards, setShowDiscards] = useState(false);
     const [showTopCard, setShowTopCard] = useState(false);
+    let playFunction = props.isActive ? props.playFn : nullFunction;
+
+    //Need to move health and influence and attacks to player props so the game can manage
+    //those resources: Keep turn logs, update player tokens during end of a turn,
+    //maybe in the future have playing a card actually perform the action it allows you to (with respect to tokens)
+
+
+    //Have a non active player unable to press their cards to play them!
+    //Allow for onlongpress only to discard!
     const [health, setHealth] = useState(10);
     const [influence, setInfluence] = useState(0);
-    const name = props.character.name;
 
+    const renderCards = (hand: Readonly<CardData[]>, pressFn: Readonly<Function>, longPressFn: Readonly<Function>) =>{
+        if (hand.length > 0) {
+            return (
+                <View style={[
+                    styles.handView, 
+                    { 
+                        flex: 1, 
+                        flexWrap: "wrap", 
+                        flexDirection: "row", 
+                        padding: 10, 
+                        justifyContent: 'center', 
+                        alignItems: 'center'
+                    }]
+                }>
+                {hand.map((card) => renderTouchableCard(card, props.character.id, pressFn, longPressFn))}
+                </View>
+            );
+          }
+          return null;
+    }
+    
+    const renderDiscards = (cards: Readonly<CardData[]>, pressFn: Readonly<Function>) =>{
+        if (showDiscards) {
+            return renderCards(cards, pressFn, nullFunction);
+          }
+          return null;
+    }
+
+    const renderTopCard = (deck: Readonly<CardData[]>, playerId: Readonly<number>) => {
+        if(showTopCard){
+            if(deck.length > 0){
+                let card = deck[deck.length-1];
+                return renderCard(card, playerId)
+            }
+        }
+        return null;
+    }
+    
+    const renderName = () =>{
+        let display = props.isActive ? props.character.name + "'s Turn" : props.character.name;
+        return(
+            <View style={{flex:1}}>
+                <Text style={styles.nameText}>{display}</Text>
+            </View>
+        );
+    }
+    
     return(
         <View style={[styles.playerBoard,
         { 
@@ -25,7 +82,7 @@ const Player = (props: PlayerProps) => {
             justifyContent: 'center', 
             alignItems: 'center'
         }]}>
-            {renderName(name, props.isActive)}
+            {renderName()}
             <View style={{flexDirection: 'row'}}>
             {renderHealth(health, setHealth)}
             {renderInfluence(influence, setInfluence)}
@@ -35,19 +92,21 @@ const Player = (props: PlayerProps) => {
                 title={((getShowOrHideText(showTopCard)))+" top card"}
                 onPress={() => {setShowTopCard(!showTopCard)}}
             />
-            {renderTopCard(showTopCard, props.drawPile, props.character.id)}
+            {renderTopCard(props.drawPile, props.character.id)}
             <Button
                 title={"Draw (" + props.drawPile.length + ")"}
                 onPress={() => {props.drawFn(props.character.id)}}
             />
             </View>
-            {renderCards(props.hand, props.character.id, props.discardFn)}
+            <Text style={styles.howToPlayText}>Press: Play Card</Text>
+            <Text style={styles.howToPlayText} >Press and Hold: Discard Card</Text>
+            {renderCards(props.hand, playFunction, props.discardFn)}
             <Button
                 title={(getShowOrHideText(showDiscards))
                     +" Discards (" + props.discardPile.length + ")"}
                 onPress={() => {setShowDiscards(!showDiscards)}}
             />
-            {renderDiscards(showDiscards, props.discardPile, props.character.id, props.drawDiscardFn)}
+            {renderDiscards(props.discardPile, props.drawDiscardFn)}
         </View>
     );
 }
@@ -55,8 +114,6 @@ const Player = (props: PlayerProps) => {
 function getShowOrHideText(flag: boolean){
     return flag ? "Hide" : "Show";
 }
-
-function nullFunction(){}
 
 const renderHealth = (health: number, updateHealth: Function) => {
     let stunnedText = health > 0 ? null : <Text>Stunned!</Text>;
@@ -144,53 +201,27 @@ const renderInfluence = (influence: number, updateInfluence: Function) =>{
     );
 }
 
-const renderTopCard = (showTopCard: boolean, deck: Readonly<CardData[]>, playerId: Readonly<number>) => {
-    if(showTopCard){
-        if(deck.length > 0){
-            return renderCard(deck[deck.length-1], playerId, nullFunction);
-        }
-    }
-    return null;
+const renderTouchableCard = (
+    card: Readonly<CardData>,
+    playerId: Readonly<number>,
+    pressFn: Readonly<Function>,
+    longPressFn: Readonly<Function>) => {
+    return (
+        <TouchableCard
+        id={card.id}
+        playerId={playerId}
+        name={card.name}
+        description={card.description}
+        type={card.type}
+        cost={card.cost}
+        pressFn={pressFn}
+        longPressFn={longPressFn}/>
+      )
 }
 
-const renderName = (name: string, isActive: boolean) =>{
-    let display = isActive ? name + "'s Turn" : name;
-    return(
-        <View style={{flex:1}}>
-            <Text style={styles.nameText}>{display}</Text>
-        </View>
-    );
-}
-
-const renderCards = (hand: Readonly<CardData[]>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
-    if (hand.length > 0) {
-        return (
-            <View style={[
-                styles.handView, 
-                { 
-                    flex: 1, 
-                    flexWrap: "wrap", 
-                    flexDirection: "row", 
-                    padding: 10, 
-                    justifyContent: 'center', 
-                    alignItems: 'center'
-                }]
-            }>
-            {hand.map((card) => renderCard(card, playerId, discardFn))}
-            </View>
-        );
-      }
-      return null;
-}
-
-const renderDiscards = (show: boolean, cards: Readonly<CardData[]>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
-    if (show) {
-        return renderCards(cards, playerId, discardFn);
-      }
-      return null;
-}
-
-const renderCard = (card: Readonly<CardData>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
+const renderCard = (
+    card: Readonly<CardData>,
+    playerId: Readonly<number>) =>{
     return (
         <Card
         id={card.id}
@@ -198,8 +229,7 @@ const renderCard = (card: Readonly<CardData>, playerId: Readonly<number>, discar
         name={card.name}
         description={card.description}
         type={card.type}
-        cost={card.cost}
-        discardFn={discardFn}/>
+        cost={card.cost}/>
       )
 }
 
@@ -225,6 +255,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: Colors.LightBlack,
         padding: 5
+    },
+    howToPlayText:{
+        color: Colors.LightBlack
     }
 });
 

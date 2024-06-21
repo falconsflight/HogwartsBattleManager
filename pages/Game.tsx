@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native';
 import Player from '../components/Player';
-import {createDarkArtsDeck, createDeck, shuffleCards} from '../lib/UtilityFunctions';
+import {GetEmptyCardData, createDarkArtsDeck, createDeck, shuffleCards} from '../lib/UtilityFunctions';
 import { CardProps } from '../models/CardProps';
 import Store from '../components/Store';
 import Cards from '../lib/Cards';
@@ -32,7 +32,7 @@ const GamePage = ({ route, navigation}) => {
     const [darkArtsCards, setDarkArtsCards] = useState(CreateDarkArtsCards(year));
     const [gameDetailsVisible, setGameDetailsVisible] = useState(false);
     const [acquireCardModalVisible, setAcquireCardModalVisible] = useState(false);
-    const [acquiredCard, setAcquiredCard] = useState({});
+    const [acquiredCard, setAcquiredCard] = useState(GetEmptyCardData());
     const [,forceUpdate] = useReducer(x => x + 1, 0);
 
     const renderPlayer = (player: Readonly<PlayerProps>) => {
@@ -45,6 +45,7 @@ const GamePage = ({ route, navigation}) => {
         isActive={player.character.name == GetCurrentPlayerName()}
         drawFn={player.drawFn}
         drawDiscardFn={player.drawDiscardFn}
+        playFn={player.playFn}
         discardFn={player.discardFn}
         />
       );
@@ -158,13 +159,16 @@ const GamePage = ({ route, navigation}) => {
 
     function addToShelf(){
       if(store.shelf.length < shelfLimit){
-        store.shelf.push(store.drawPile.pop());
+        let card = store.drawPile.pop();
+        if(card != undefined){
+          store.shelf.push(card);
+        }
       }
       forceUpdate();
     }
 
     function acquireCard(id: string){
-      let card = store.shelf.filter((card: CardProps) => card.id == id)[0];
+      let card = store.shelf.filter((card: CardData) => card.id == id)[0];
       setAcquiredCard(card);
       setAcquireCardModalVisible(true);
     }
@@ -189,8 +193,8 @@ const GamePage = ({ route, navigation}) => {
         deck.push(createDeck(Cards.hogwartsCards[i]))
       }
       let finalDeck = shuffleCards(deck.flat());
-      
-      return {drawPile: finalDeck, shelf: []};
+      let shelf : CardData[] = [];
+      return {drawPile: finalDeck, shelf: shelf};
     }
 
     function CreateDarkArtsCards(year: number){
@@ -220,6 +224,7 @@ const GamePage = ({ route, navigation}) => {
         isActive: false,
         drawFn: drawPlayerCard,
         drawDiscardFn: drawDiscard,
+        playFn: playCard,
         discardFn: discardCard
       };
       return player;
@@ -229,18 +234,25 @@ const GamePage = ({ route, navigation}) => {
       let drawingPlayer = findPlayer(characterId);
       if (drawingPlayer != undefined){
         if(drawingPlayer.drawPile.length > 0){
-          drawingPlayer.hand.push(drawingPlayer.drawPile.pop());
+          addPlayerCardToHand(drawingPlayer);
         }else{
             if(drawingPlayer.discardPile.length < 1){
                 console.log("Unable to draw because draw and discard piles are empty");
             }else{
                 restoreDrawPile(drawingPlayer);
-                drawingPlayer.hand.push(drawingPlayer.drawPile.pop());
+                addPlayerCardToHand(drawingPlayer);
             }
         }
       }
       forceUpdate();
     }
+
+  function addPlayerCardToHand(player: PlayerProps){
+    let card = player.drawPile.pop();
+    if(card != undefined){
+      player.hand.push(card);
+    }
+  }
 
   function restoreDrawPile(player: PlayerProps){
       shuffleCards(player.discardPile).map((card) => player.drawPile.push(card));//Does this always put it on top? Might be bad if there is a leftover card on the draw pile? Might be okay though if we force the user to press the draw button always.
@@ -252,14 +264,25 @@ const GamePage = ({ route, navigation}) => {
     darkArtsCards.discardPile = [];
   }
 
+  function playCard(id: string, characterId: number){
+    let player = findPlayer(characterId);
+    if(player != undefined){
+      sendToDiscardPile(player, id);
+    }
+  }
+
   function discardCard(id: string, characterId: number) {
       let player = findPlayer(characterId);
       if(player != undefined){
-        let playedCard = player.hand.filter((card: CardData) => card.id == id);
-        player.discardPile.push(playedCard[0]);
-        player.hand = player.hand.filter((card: CardData) => card.id != id);
+        sendToDiscardPile(player, id);
       }
-      forceUpdate()
+  }
+
+  function sendToDiscardPile(player: PlayerProps, id: string){
+    let playedCard = player.hand.filter((card: CardData) => card.id == id);
+    player.discardPile.push(playedCard[0]);
+    player.hand = player.hand.filter((card: CardData) => card.id != id);
+    forceUpdate();
   }
 
   function drawDiscard(id: string, characterId: number) {

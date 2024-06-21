@@ -56,3 +56,19 @@ export function shuffleCards(deck: CardData[]){
     }
     return deck;
 };
+
+export function GetEmptyCardData(){
+  let card : CardData = {
+    id: "",
+    name: "",
+    description: "",
+    count: 0,
+    type: "",
+    cost: 0
+  };
+  return card;
+}
+
+export function nullFunction(){
+  
+}

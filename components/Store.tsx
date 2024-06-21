@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native'
 import * as Colors from '../lib/Colors'
-import Card from './Card';
 import { StoreProps } from '../models/StoreProps';
 import { CardData } from '../models/CardData';
+import TouchableCard from './TouchableCard';
+import { nullFunction } from '../lib/UtilityFunctions';
 
 const Store = (props: StoreProps) => {
     let drawPile = props.drawPile;
@@ -11,14 +12,15 @@ const Store = (props: StoreProps) => {
     
     const renderCard = (card: Readonly<CardData>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
         return (
-            <Card
+            <TouchableCard
             id={card.id}
             playerId={playerId}
             name={card.name}
             description={card.description}
             type={card.type}
             cost={card.cost}
-            discardFn={discardFn}/>
+            pressFn={discardFn}
+            longPressFn={nullFunction}/>
           )
     }
 

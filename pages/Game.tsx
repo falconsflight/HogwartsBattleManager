@@ -42,11 +42,15 @@ const GamePage = ({ route, navigation}) => {
         drawPile={player.drawPile}
         hand={player.hand}
         discardPile={player.discardPile}
-        isActive={player.character.name == GetCurrentPlayerName()}
+        health={player.health}
+        influence={player.influence}
+        isActive={IsPlayerActive(player)}
         drawFn={player.drawFn}
         drawDiscardFn={player.drawDiscardFn}
         playFn={player.playFn}
         discardFn={player.discardFn}
+        updateHealth={player.updateHealth}
+        updateInfluence={player.updateInfluence}
         />
       );
     }
@@ -102,7 +106,8 @@ const GamePage = ({ route, navigation}) => {
           {renderDarkArts(darkArtsCards.discardPile)}
           </View>
           <Store drawPile={store.drawPile} shelf={store.shelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
-          {players.map((player) => renderPlayer(player))}
+          {renderPlayer(players.filter((player) => IsPlayerActive(player))[0])}
+          {players.filter((player) => !IsPlayerActive(player)).map((player) => renderPlayer(player))}
         </View>
 
       <AcquireCardModal
@@ -119,6 +124,26 @@ const GamePage = ({ route, navigation}) => {
         displayFn={setGameDetailsVisible}/>
       </ScrollView>
     );
+
+    function IsPlayerActive(player: PlayerProps){
+      return player.character.name == GetCurrentPlayerName();
+    }
+
+    function UpdateHealth(characterId: number, newValue: number){
+      let player = findPlayer(characterId);
+      if(player != undefined){
+        player.health = newValue; 
+      }
+      forceUpdate();
+    }
+
+    function UpdateInfluence(characterId: number, newValue: number){
+      let player = findPlayer(characterId);
+      if(player != undefined){
+        player.influence = newValue; 
+      }
+      forceUpdate();
+    }
 
     function findPlayer(characterId: number){
       return players.find((player) => player.character.id == characterId);
@@ -222,10 +247,14 @@ const GamePage = ({ route, navigation}) => {
         hand: [],
         discardPile: [],
         isActive: false,
+        health: 10,
+        influence: 0,
         drawFn: drawPlayerCard,
         drawDiscardFn: drawDiscard,
         playFn: playCard,
-        discardFn: discardCard
+        discardFn: discardCard,
+        updateHealth: UpdateHealth,
+        updateInfluence: UpdateInfluence
       };
       return player;
     }

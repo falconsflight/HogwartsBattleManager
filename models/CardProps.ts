@@ -4,6 +4,5 @@ export type CardProps = {
     type: string,
     cost: number,
     id: string,
-    playerId: number,
-    discardFn: Function
+    playerId: number
 }

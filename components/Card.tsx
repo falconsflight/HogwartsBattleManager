@@ -4,8 +4,7 @@ import { CardProps } from '../models/CardProps';
 
 const Card = (props: CardProps) => {
     return(
-        //Maybe we move "Touchable" higher up to Player/Gallery/ect... then you don't have to pass a discard function down
-        <TouchableOpacity onPress={() => props.discardFn(props.id, props.playerId)}>
+        //Onpress is a play, onlongpress is a discard!
         <View id={props.id} style={[styles.playerCard, {backgroundColor: GetColorForType(props.type)}]}>
             <Text style={styles.nameText}>
                 {props.name}
@@ -20,7 +19,6 @@ const Card = (props: CardProps) => {
             
             {/* Add "Spell/Item/Ally plate here?*/}
         </View>
-        </TouchableOpacity>
     );
 }
 

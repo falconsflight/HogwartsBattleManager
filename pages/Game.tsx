@@ -4,6 +4,7 @@ import {
   Pressable,
   ScrollView,
   Text,
+  ToastAndroid,
   View
 } from 'react-native';
 import Player from '../components/Player';
@@ -91,6 +92,8 @@ const GamePage = ({ route, navigation}) => {
             title={"End Turn #"+turnCount}
             onPress={() => {EndTurn()}}
           />
+          
+          <Store drawPile={store.drawPile} shelf={store.shelf} credit={GetCurrentPlayer()?.influence ?? 0} drawFn={addToShelf} acquireFn={acquireCard}></Store>
           <View style={{ 
                     flex: 1, 
                     flexWrap: "wrap", 
@@ -105,7 +108,6 @@ const GamePage = ({ route, navigation}) => {
           </Pressable>
           {renderDarkArts(darkArtsCards.discardPile)}
           </View>
-          <Store drawPile={store.drawPile} shelf={store.shelf} drawFn={addToShelf} acquireFn={acquireCard}></Store>
           {renderPlayer(players.filter((player) => IsPlayerActive(player))[0])}
           {players.filter((player) => !IsPlayerActive(player)).map((player) => renderPlayer(player))}
         </View>
@@ -153,6 +155,10 @@ const GamePage = ({ route, navigation}) => {
       return GetCharacterName(characters[currentPlayer]);
     }
 
+    function GetCurrentPlayer(){
+      return players.find((player) => GetCurrentPlayerName() == player.character.name);
+    }
+
     function GetCharacterNames(ids: number[]){
       let names = ids.map((id) => GetCharacterName(id));
       let returnValue = "";
@@ -166,6 +172,11 @@ const GamePage = ({ route, navigation}) => {
 
     function EndTurn(){
       //In the future: reduce current player's hand to zero, draw 5 cards, shuffle discards if necessary, update
+      let player = GetCurrentPlayer();
+      if(player != undefined){
+        player.influence = 0;
+      }
+
       if((playerCount - 1) == currentPlayer){
         setCurrentPlayer(0);
       }else{
@@ -199,16 +210,18 @@ const GamePage = ({ route, navigation}) => {
     }
 
     function addCardToCurrentPlayer(whereToPlaceCard: string){
-      let id = characters[currentPlayer];
-      let player = findPlayer(id);
-      if(whereToPlaceCard == "Discard"){
-        player?.discardPile.push(acquiredCard);
-      }else if(whereToPlaceCard == "Draw"){
-        player?.drawPile.push(acquiredCard);
-      }else{
-        player?.hand.push(acquiredCard);
+      let player = GetCurrentPlayer();
+      if(player != undefined){
+        if(whereToPlaceCard == "Discard"){
+          player.discardPile.push(acquiredCard);
+        }else if(whereToPlaceCard == "Draw"){
+          player.drawPile.push(acquiredCard);
+        }else{
+          player.hand.push(acquiredCard);
+        }
+        store.shelf = store.shelf.filter((card: CardData) => card.id != acquiredCard.id);
+        player.influence = player?.influence - acquiredCard.cost;
       }
-      store.shelf = store.shelf.filter((card: CardData) => card.id != acquiredCard.id);
     }
 
     function CreateStore(year: number){

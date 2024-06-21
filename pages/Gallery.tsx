@@ -35,8 +35,7 @@ function GalleryPage({ navigation }) {
             name={card.name}
             description={card.description}
             type={card.type}
-            cost={card.cost}
-            discardFn={discardFn}/>
+            cost={card.cost}/>
           )
     }
 

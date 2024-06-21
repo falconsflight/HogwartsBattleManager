@@ -1,27 +1,29 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, ToastAndroid } from 'react-native'
 import * as Colors from '../lib/Colors'
 import { StoreProps } from '../models/StoreProps';
 import { CardData } from '../models/CardData';
 import TouchableCard from './TouchableCard';
 import { nullFunction } from '../lib/UtilityFunctions';
+import Card from './Card';
 
 const Store = (props: StoreProps) => {
     let drawPile = props.drawPile;
     let shelf = props.shelf;
     
     const renderCard = (card: Readonly<CardData>, playerId: Readonly<number>, discardFn: Readonly<Function>) =>{
+        let pressFn = props.credit >= card.cost ? discardFn : UnableToBuyToast;
+        let type = props.credit >= card.cost ? card.type : "";
         return (
             <TouchableCard
             id={card.id}
             playerId={playerId}
             name={card.name}
             description={card.description}
-            type={card.type}
+            type={type}
             cost={card.cost}
-            pressFn={discardFn}
-            longPressFn={nullFunction}/>
-          )
+            pressFn={pressFn}
+            longPressFn={nullFunction}/>);
     }
 
     return(
@@ -29,6 +31,7 @@ const Store = (props: StoreProps) => {
             <View style={{flex:1}}>
             <Text style={styles.title}>Store</Text>
             <Text>(Only 6 Cards allowed)</Text>
+            <Text>Store Credit: 🪙 {props.credit}</Text>
             </View>
             <View style={{flex:1}}>
             <Button
@@ -47,6 +50,11 @@ const Store = (props: StoreProps) => {
         </View>
     );
 }
+
+function UnableToBuyToast(){
+    ToastAndroid.show("Not enough influence to acquire!", ToastAndroid.SHORT);
+}
+
 const styles = StyleSheet.create({
     playerBoard:{
         padding: 5,

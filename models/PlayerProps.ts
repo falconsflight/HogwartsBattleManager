@@ -9,5 +9,6 @@ export type PlayerProps = {
     isActive: boolean,
     drawFn: Function,
     drawDiscardFn: Function,
+    playFn: Function,
     discardFn: Function
 }

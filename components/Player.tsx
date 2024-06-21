@@ -122,12 +122,14 @@ const renderHealth = (health: number, playerId: number, updateHealth: Function) 
                     <View style={{marginRight: 3}}>
                         <Button
                         title={"+ 1"}
+                        color={Colors.PositiveButton}
                         onPress={() => {if(health < 10)updateHealth(playerId, health+1)}}
                         />
                     </View>
                     <View style={{marginRight: 3}}>
                         <Button
                         title={"+ 2"}
+                        color={Colors.PositiveButton}
                         onPress={() => {
                             if(health < 9){updateHealth(playerId, health+2)}else{updateHealth(playerId, 10)}
                             }}
@@ -136,11 +138,13 @@ const renderHealth = (health: number, playerId: number, updateHealth: Function) 
                     <View style={{marginRight: 3}}>
                         <Button
                             title={"- 1"}
+                            color={Colors.NegativeButton}
                             onPress={() => {if(health > 0)updateHealth(playerId, health-1)}}
                         />
                     </View>
                     <Button
                         title={"- 2"}
+                        color={Colors.NegativeButton}
                         onPress={() => {
                             if(health > 1){updateHealth(playerId, health-2)}else{updateHealth(playerId, 0)}
                             }}
@@ -168,18 +172,21 @@ const renderInfluence = (influence: number, playerId: number, updateInfluence: F
                 <View style={{marginRight: 3}}>
                     <Button
                     title={"+ 1"}
+                    color={Colors.PositiveButton}
                     onPress={() => {updateInfluence(playerId, influence+1)}}
                     />
                 </View>
                 <View style={{marginRight: 3}}>
                     <Button
                     title={"+ 2"}
+                    color={Colors.PositiveButton}
                     onPress={() => {updateInfluence(playerId, influence+2)}}
                     />
                 </View>
                 <View style={{marginRight: 3}}>
                 <Button
                     title={"- 1"}
+                    color={Colors.NegativeButton}
                     onPress={() => {if(influence > 0)updateInfluence(playerId, influence-1)}}
                 />
                 </View>

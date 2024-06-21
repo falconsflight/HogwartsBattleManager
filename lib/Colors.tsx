@@ -9,3 +9,5 @@ export const Ally = "#5d63fc";
 export const CardBack = "#592a03";
 export const CardDescription = "#e9f5c4";
 export const PlayerStunned = "#fc6262";
+export const NegativeButton = "#0070d1";
+export const PositiveButton = "#52acfa";

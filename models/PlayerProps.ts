@@ -6,9 +6,13 @@ export type PlayerProps = {
     drawPile: CardData[],
     hand: CardData[],
     discardPile: CardData[],
+    health: number,
+    influence: number,
     isActive: boolean,
     drawFn: Function,
     drawDiscardFn: Function,
     playFn: Function,
     discardFn: Function
+    updateHealth: Function,
+    updateInfluence: Function
 }

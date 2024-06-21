@@ -16,12 +16,6 @@ const Player = (props: PlayerProps) => {
     //those resources: Keep turn logs, update player tokens during end of a turn,
     //maybe in the future have playing a card actually perform the action it allows you to (with respect to tokens)
 
-
-    //Have a non active player unable to press their cards to play them!
-    //Allow for onlongpress only to discard!
-    const [health, setHealth] = useState(10);
-    const [influence, setInfluence] = useState(0);
-
     const renderCards = (hand: Readonly<CardData[]>, pressFn: Readonly<Function>, longPressFn: Readonly<Function>) =>{
         if (hand.length > 0) {
             return (
@@ -62,6 +56,7 @@ const Player = (props: PlayerProps) => {
     
     const renderName = () =>{
         let display = props.isActive ? props.character.name + "'s Turn" : props.character.name;
+        display += props.health == 0 ? "\n" + props.character.name + " is stunned!" : "";
         return(
             <View style={{flex:1}}>
                 <Text style={styles.nameText}>{display}</Text>
@@ -73,7 +68,7 @@ const Player = (props: PlayerProps) => {
         <View style={[styles.playerBoard,
         { 
             backgroundColor: 
-                health == 0 ? Colors.PlayerStunned : 
+                props.health == 0 ? Colors.PlayerStunned : 
                 props.isActive ? Colors.Gray : Colors.LightGray,
             flex: 1, 
             flexWrap: "wrap", 
@@ -84,8 +79,8 @@ const Player = (props: PlayerProps) => {
         }]}>
             {renderName()}
             <View style={{flexDirection: 'row'}}>
-            {renderHealth(health, setHealth)}
-            {renderInfluence(influence, setInfluence)}
+            {renderHealth(props.health, props.character.id, props.updateHealth)}
+            {renderInfluence(props.influence, props.character.id, props.updateInfluence)}
             </View>
             <View style={{flex:1, marginBottom: 5}}>
             <Button
@@ -115,88 +110,86 @@ function getShowOrHideText(flag: boolean){
     return flag ? "Hide" : "Show";
 }
 
-const renderHealth = (health: number, updateHealth: Function) => {
-    let stunnedText = health > 0 ? null : <Text>Stunned!</Text>;
+const renderHealth = (health: number, playerId: number, updateHealth: Function) => {
     return (
         <View style={{flex: 1,
             flexDirection: "column", 
             padding: 10, 
             justifyContent: 'center', 
             alignItems: 'center'}}>
+            <Text style={styles.tokenText}>❤️ {health}</Text>
             <View style={{flex: 1, flexDirection: "row"}}>
                     <View style={{marginRight: 3}}>
                         <Button
                         title={"+ 1"}
-                        onPress={() => {if(health < 10)updateHealth(health+1)}}
+                        onPress={() => {if(health < 10)updateHealth(playerId, health+1)}}
                         />
                     </View>
                     <View style={{marginRight: 3}}>
                         <Button
                         title={"+ 2"}
                         onPress={() => {
-                            if(health < 9){updateHealth(health+2)}else{updateHealth(10)}
+                            if(health < 9){updateHealth(playerId, health+2)}else{updateHealth(playerId, 10)}
                             }}
                         />
                     </View>
                     <View style={{marginRight: 3}}>
                         <Button
                             title={"- 1"}
-                            onPress={() => {if(health > 0)updateHealth(health-1)}}
+                            onPress={() => {if(health > 0)updateHealth(playerId, health-1)}}
                         />
                     </View>
                     <Button
                         title={"- 2"}
                         onPress={() => {
-                            if(health > 1){updateHealth(health-2)}else{updateHealth(0)}
+                            if(health > 1){updateHealth(playerId, health-2)}else{updateHealth(playerId, 0)}
                             }}
                     />
             </View>
             <View style={{marginTop: 3}}>
                 <Button
                     title={"Reset"}
-                    onPress={() => {updateHealth(10)}}
+                    onPress={() => {updateHealth(playerId, 10)}}
                 />
             </View>
-            <Text style={styles.healthText}>Health: {health}</Text>
-            {stunnedText}
         </View>
     );
 }
 
-const renderInfluence = (influence: number, updateInfluence: Function) =>{
+const renderInfluence = (influence: number, playerId: number, updateInfluence: Function) =>{
     return (
         <View style={{flex: 1,
             flexDirection: "column", 
             padding: 10, 
             justifyContent: 'center', 
             alignItems: 'center'}}>
+            <Text style={styles.tokenText}>🪙 {influence}</Text>
             <View style={{flex: 1, flexDirection: "row"}}>
                 <View style={{marginRight: 3}}>
                     <Button
                     title={"+ 1"}
-                    onPress={() => {updateInfluence(influence+1)}}
+                    onPress={() => {updateInfluence(playerId, influence+1)}}
                     />
                 </View>
                 <View style={{marginRight: 3}}>
                     <Button
                     title={"+ 2"}
-                    onPress={() => {updateInfluence(influence+2)}}
+                    onPress={() => {updateInfluence(playerId, influence+2)}}
                     />
                 </View>
                 <View style={{marginRight: 3}}>
                 <Button
                     title={"- 1"}
-                    onPress={() => {if(influence > 0)updateInfluence(influence-1)}}
+                    onPress={() => {if(influence > 0)updateInfluence(playerId, influence-1)}}
                 />
                 </View>
             </View>
             <View style={{marginTop: 3}}>
                 <Button
                     title={"Reset"}
-                    onPress={() => {updateInfluence(0)}}
+                    onPress={() => {updateInfluence(playerId, 0)}}
                 />
             </View>
-            <Text style={styles.healthText}>Influence: {influence}</Text>
         </View>
     );
 }
@@ -249,8 +242,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: Colors.LightBlack
     },
-    healthText:{
-        fontSize: 15,
+    tokenText:{
+        fontSize: 20,
         textAlign: 'center',
         fontWeight: 'bold',
         color: Colors.LightBlack,

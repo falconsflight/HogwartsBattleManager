@@ -1,23 +1,19 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import * as Colors from '../lib/Colors'
 import { CardProps } from '../models/CardProps';
 
 const Card = (props: CardProps) => {
-    return(
-        //Onpress is a play, onlongpress is a discard!
+    return(        
         <View id={props.id} style={[styles.playerCard, {backgroundColor: GetColorForType(props.type)}]}>
             <Text style={styles.nameText}>
                 {props.name}
             </Text>
-            {/* Move description to a modal onlongpress?*/}
             <View style={styles.descriptionBox}>
                 <Text style={styles.descriptionText}>
                     {props.description}
                 </Text>
                 {showCost(props.cost)}
             </View>
-            
-            {/* Add "Spell/Item/Ally plate here?*/}
         </View>
     );
 }
@@ -39,19 +35,19 @@ const GetColorForType = (type: string) => {
             return Colors.Item;
         case("Ally"):
             return Colors.Ally;
-        default: return Colors.CardBack;
+        default: return "grey";
     }
 };
 
 const styles = StyleSheet.create({
-    
     playerCard:{
         padding: 5,
         borderRadius: 5,
         margin: 5,
         elevation: 10,
         width: 150,
-        minHeight: 100
+        minHeight: 100,
+        borderWidth: 1
     },
     nameText:{
         textAlign: 'center',

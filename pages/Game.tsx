@@ -19,13 +19,14 @@ import { DarkArtsData } from '../models/DarkArtsData';
 import DarkArtsCard from '../components/DarkArtsCard';
 import AcquireCardModal from '../components/AcquireCardModal';
 import { gameStyle } from '../lib/GameStyle';
+import Characters from '../lib/Characters';
 
 const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
     const playerCount = characters.length;
     const shelfLimit = 6;
     
-    const charactersJson = require('../lib/Characters.json');
+    const charactersJson = Characters.data;
     const charactersData = charactersJson.characters;
     const [turnCount, setTurnCount] = useState(1);
     const [currentPlayer, setCurrentPlayer] = useState(0);

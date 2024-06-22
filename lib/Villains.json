@@ -1,0 +1,122 @@
+{
+    "1": [
+        {
+            "name" : "Crabbe & Goyle",
+            "ability" : "Each time a Dark Arts event or Villain causes a Hero to discard a card, that Hero loses 1 ❤️.",
+            "reward" : "ALL Heroes draw a card.",
+            "health" : 5
+        },
+        {
+            "name" : "Draco Malfoy™",
+            "ability" : "Each time 🛑 is added to the Location, active Hero loses 2 ❤️.",
+            "reward" : "Remove 1 🛑 from the Location.",
+            "health" : 6
+        },
+        {
+            "name" : "Quirinus Quirrell",
+            "ability" : "Active Hero loses 1 ❤️.",
+            "reward" : "ALL Heroes gain 1 🪙 and 1 ❤️.",
+            "health" : 6
+        }
+    ],
+    "2": [
+        {
+            "name" : "Lucius Malfoy",
+            "ability" : "Each time 🛑 is added to the Location, remove 1 ⚡ from all Villains.",
+            "reward" : "ALL Heroes gain 1 🪙.\nRemove 1 🛑 from the Location.",
+            "health" : 7
+        },
+        {
+            "name" : "Tom Riddle™",
+            "ability" : "For each Ally in hand active Hero choses one:\nLose 2 ❤️; or discard a card.",
+            "reward" : "ALL Heroes choose one:\nGain 2 ❤️; or search their discard pile for an Ally and put it in their hand.",
+            "health" : 6
+        },
+        {
+            "name" : "Basilisk",
+            "ability" : "Heroes cannot draw extra cards.\n(You still draw 5 new cards at the end of your turn.)",
+            "reward" : "ALL Heroes draw a card.\nRemove 1 🛑 from the Location.",
+            "health" : 8
+        }
+    ],
+    "3": [
+        {
+            "name" : "Dementor",
+            "ability" : "Active Hero loses 2 ❤️.",
+            "reward" : "ALL Heroes gain 2 ❤️.\nRemove 1 🛑 from the Location.",
+            "health" : 8
+        },
+        {
+            "name" : "Peter Pettigrew",
+            "ability" : "Active Hero reveals the top card of his or her deck. If its value is 1 or more 🪙, discard it and add 1 🛑 to the Location.",
+            "reward" : "ALL Heroes may search their discard pile for a Spell and put it in their hand.\nRemove 1 🛑 from the Location.",
+            "health" : 7
+        }
+    ],
+    "4": [
+        {
+            "name" : "Death Eater",
+            "ability" : "Each time Morsmordre! or a new Villain is revealed, ALL Heroes lose 1 ❤️.",
+            "reward" : "ALL Heroes gain 1 ❤️.\nRemove 1 🛑 from the Location.",
+            "health" : 7
+        },
+        {
+            "name" : "Barty Crouch, Jr.",
+            "ability" : "Heroes cannot remove 🛑 from the Location.",
+            "reward" : "Remove 2 🛑 from the Location.",
+            "health" : 7
+        }
+    ],
+    "5": [
+        {
+            "name" : "Death Eater",
+            "ability" : "Each time Morsmordre! or a new Villain is revealed, ALL Heroes lose 1 ❤️.",
+            "reward" : "ALL Heroes gain 1 ❤️.\nRemove 1 🛑 from the Location.",
+            "health" : 7
+        },
+        {
+            "name" : "Dolores Umbridge™",
+            "ability" : "Each time a Hero acquires a card with a value of 4 or more 🪙, that Hero loses 1 ❤️.",
+            "reward" : "ALL Heroes gain 1 🪙 and 2 ❤️.",
+            "health" : 7
+        }
+    ],
+    "6": [
+        {
+            "name" : "Fenrir Greyback",
+            "ability" : "Heroes cannot gain ❤️.",
+            "reward" : "ALL Heroes gain 3 ❤️.\nRemove 2 🛑 from the Location.",
+            "health" : 8
+        },
+        {
+            "name" : "Bellatrix Lestrange™",
+            "ability" : "Reveal an additional Dark Arts event each turn.",
+            "reward" : "ALL Heroes may search their discard pile for an Item and put it in their hand.\nRemove 2 🛑 from the Location.",
+            "health" : 9
+        }
+    ],
+    "Voldemort5" : [
+        {
+            "name" : "Lord Voldemort™",
+            "ability" : "Active Hero loses 1 ❤️ and discards a card.\nMay not be assigned ⚡ until all other Villains are defeated.",
+            "reward" : "Heroes win!",
+            "health" : 10
+        }
+    ],
+    "Voldemort6" : [
+        {
+            "name" : "Lord Voldemort™",
+            "ability" : "Roll the 🟩 Die:\n⚡ = ALL Heroes lose 1 ❤️.\n🪙 = Add 1 🛑 to the Location.\n❤️ = Remove 1 ⚡ from all Villains.\n🔲 = ALL Heroes discard a card.\nMay not be assigned ⚡ until all other Villains are defeated.",
+            "reward" : "Heroes win!",
+            "health" : 15
+        }
+    ],
+    "Voldemort7" : [
+        {
+            "name" : "Lord Voldemort™",
+            "ability" : "Add 1 🛑 to the Location.\nEach time 🛑 is removed from the Location, ALL Heroes lose 1 ❤️.\nMay not be assigned ⚡ until all other Villains are defeated.",
+            "reward" : "Heroes win!",
+            "health" : 20
+        }
+    ]
+}

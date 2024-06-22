@@ -11,7 +11,7 @@ import CheckBox from '../components/CheckBox';
 function SetupPage({ navigation }) {
     const [checkBoxSelected, setCheckBoxSelected] = useState([]);
     const [year, setYear] = useState(1);
-    const charactersJson = require('../Characters.json');
+    const charactersJson = require('../lib/Characters.json');
     const years = [
         {label: '1', value: 1},
         {label: '2', value: 2},

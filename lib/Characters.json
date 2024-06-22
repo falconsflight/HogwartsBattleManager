@@ -1,0 +1,36 @@
+{
+    "characters" : [
+        {
+            "id": 1,
+            "name": "Harry",
+            "abilities": {
+                "3" : "The first time 🛑 is removed from the Location each turn, any one Hero gains 1 ⚡.",
+                "7" : "The first time 🛑 is removed from the Location each turn, up to two Heroes each gain 1 ⚡."
+            }
+        },
+        {
+            "id": 2,
+            "name": "Hermione",
+            "abilities": {
+                "3" : "If you play 4 or more Spells on your turn, any one Hero gains 1 🪙.",
+                "7" : "If you play 4 or more Spells on your turn, ALL Heroes gain 1 🪙."
+            }
+        },
+        {
+            "id": 3,
+            "name": "Ron",
+            "abilities": {
+                "3" : "If you assign 3 or more ⚡ on your turn, any one Hero gains 2 ❤️.",
+                "7" : "If you assign 3 or more ⚡ on your turn, ALL Heroes gain 2 ❤️."
+            }
+        },
+        {
+            "id": 4,
+            "name": "Neville",
+            "abilities": {
+                "3" : "The first time each Hero gains ❤️ on your turn, that Hero gains one additional ❤️.",
+                "7" : "Each time a Hero gains ❤️ on your turn, that Hero gains one additional ❤️."
+            }
+        }
+    ]
+}

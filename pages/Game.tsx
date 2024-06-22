@@ -25,7 +25,7 @@ const GamePage = ({ route, navigation}) => {
     const playerCount = characters.length;
     const shelfLimit = 6;
     
-    const charactersJson = require('../Characters.json');
+    const charactersJson = require('../lib/Characters.json');
     const charactersData = charactersJson.characters;
     const [turnCount, setTurnCount] = useState(1);
     const [currentPlayer, setCurrentPlayer] = useState(0);

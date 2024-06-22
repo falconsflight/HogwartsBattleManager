@@ -23,7 +23,7 @@
             "order" : 1,
             "total" : 3
         },
-        {
+        { 
             "name" : "Quidditch™ Pitch",
             "controlAmount" : 4,
             "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
@@ -36,6 +36,128 @@
             "description" : "☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
             "order" : 3,
             "total" : 3
+        }
+    ],
+    "3" : [
+        {
+            "name" : "Hogwarts™ Express",
+            "controlAmount" : 5,
+            "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
+            "order" : 1,
+            "total" : 3
+        },
+        { 
+            "name" : "Hogsmeade™ Village",
+            "controlAmount" : 6,
+            "description" : "☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 2,
+            "total" : 3
+        },
+        {
+            "name" : "Shrieking Shack",
+            "controlAmount" : 6,
+            "description" : "☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 3,
+            "total" : 3
+        }
+    ],
+    "4" : [
+        {
+            "name" : "Quidditch™ World Cup",
+            "controlAmount" : 6,
+            "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
+            "order" : 1,
+            "total" : 3
+        },
+        { 
+            "name" : "Triwizard Tournament",
+            "controlAmount" : 6,
+            "description" : "☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 2,
+            "total" : 3
+        },
+        {
+            "name" : "Graveyard",
+            "controlAmount" : 7,
+            "description" : "When this Location is revealed, ALL Heroes discard an Ally.\n☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 3,
+            "total" : 3
+        }
+    ],
+    "5" : [
+        {
+            "name" : "Azkaban",
+            "controlAmount" : 7,
+            "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
+            "order" : 1,
+            "total" : 3
+        },
+        { 
+            "name" : "Hall of Prophecy",
+            "controlAmount" : 7,
+            "description" : "☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 2,
+            "total" : 3
+        },
+        {
+            "name" : "Ministry of Magic",
+            "controlAmount" : 7,
+            "description" : "When this Location is revealed, ALL Heroes discard a Spell.\n☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 3,
+            "total" : 3
+        }
+    ],
+    "6" : [
+        {
+            "name" : "Knockturn Alley",
+            "controlAmount" : 7,
+            "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
+            "order" : 1,
+            "total" : 3
+        },
+        { 
+            "name" : "The Burrow",
+            "controlAmount" : 7,
+            "description" : "☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 2,
+            "total" : 3
+        },
+        {
+            "name" : "Astronomy Tower",
+            "controlAmount" : 8,
+            "description" : "When this Location is revealed, ALL Heroes discard an Item.\n☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 3,
+            "total" : 3
+        }
+    ],
+    "7" : [
+        {
+            "name" : "Godric's Hollow",
+            "controlAmount" : 6,
+            "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
+            "order" : 1,
+            "total" : 4
+        },
+        { 
+            "name" : "Gringotts™",
+            "controlAmount" : 6,
+            "description" : "☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 2,
+            "total" : 4
+        },
+        {
+            "name" : "Room of Requirement",
+            "controlAmount" : 7,
+            "description" : "☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 3,
+            "total" : 4
+        },
+        {
+            "name" : "Hogwarts™ Castle",
+            "controlAmount" : 8,
+            "description" : "When this Location is revealed, ALL Heroes lose 2 ❤️.\nActive Hero may disacrd 5 ⚡ to remove 1 🛑\n\n☠️ ☠️ ☠️\n Each Turn reveal 3 Dark Arts events.",
+            "order" : 4,
+            "total" : 4
         }
     ]
 }

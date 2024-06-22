@@ -18,6 +18,7 @@ import { CardData } from '../models/CardData';
 import { DarkArtsData } from '../models/DarkArtsData';
 import DarkArtsCard from '../components/DarkArtsCard';
 import AcquireCardModal from '../components/AcquireCardModal';
+import { gameStyle } from '../lib/GameStyle';
 
 const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
@@ -88,7 +89,7 @@ const GamePage = ({ route, navigation}) => {
               padding: 10, 
               justifyContent: 'center', 
               alignItems: 'center'}}>
-              <Text>❤️ All</Text>
+              <Text style={gameStyle.tokenText}>❤️ All</Text>
               <View style={{flex: 1, flexDirection: "row"}}>
                 <Button
                   title="+1"
@@ -105,7 +106,7 @@ const GamePage = ({ route, navigation}) => {
             padding: 10, 
             justifyContent: 'center', 
             alignItems: 'center'}}>
-              <Text>🪙 All</Text>
+              <Text style={gameStyle.tokenText}>🪙 All</Text>
               <View style={{flex: 1, flexDirection: "row"}}>
                 <Button
                   title="+1"
@@ -139,7 +140,7 @@ const GamePage = ({ route, navigation}) => {
                 }
             }>
           <Pressable onPress={() => drawDarkArtsCard()}>
-          {renderDarkArtsCard({name: "Dark Arts Deck", description: darkArtsCards.drawPile.length, id: "darkArtsDraw", count: 1})}
+          {renderDarkArtsCard({name: "Dark Arts Deck", description: "Click to draw\n"+darkArtsCards.drawPile.length, id: "darkArtsDraw", count: 1})}
           </Pressable>
           {renderDarkArts(darkArtsCards.discardPile)}
           </View>

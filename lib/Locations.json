@@ -1,0 +1,41 @@
+{
+    "1" : [
+        {
+            "name" : "Diagon Alley™",
+            "controlAmount" : 4,
+            "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
+            "order" : 1,
+            "total" : 2
+        },
+        {
+            "name" : "Mirror of Erised",
+            "controlAmount" : 4,
+            "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
+            "order" : 2,
+            "total" : 2
+        }
+    ],
+    "2" : [
+        {
+            "name" : "Forbidden Forest",
+            "controlAmount" : 4,
+            "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
+            "order" : 1,
+            "total" : 3
+        },
+        {
+            "name" : "Quidditch™ Pitch",
+            "controlAmount" : 4,
+            "description" : "☠️\n Each Turn reveal 1 Dark Arts event.",
+            "order" : 2,
+            "total" : 3
+        },
+        {
+            "name" : "Chamber of Secrets™",
+            "controlAmount" : 5,
+            "description" : "☠️ ☠️\n Each Turn reveal 2 Dark Arts events.",
+            "order" : 3,
+            "total" : 3
+        }
+    ]
+}

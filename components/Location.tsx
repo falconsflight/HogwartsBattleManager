@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 import * as Colors from '../lib/Colors'
 import { LocationProps } from '../models/LocationProps';
 
@@ -18,22 +18,48 @@ const Location = (props: LocationProps) => {
         );
     }
 
-    return(        
-        <View style={[styles.playerCard, {backgroundColor: "green"}]}>
-            <Text style={styles.nameText}>
-                {props.name}
-            </Text>
-            <View style={styles.descriptionBox}>
-                <Text style={styles.descriptionText}>
-                    {props.description}
-                </Text>
+    const renderPlusMinus = () => {
+        return (
+          <View style={{flexDirection: 'row'}}>
+              <View>
+                <View style={{flex: 1, flexDirection: "row"}}>
+                  <Button
+                    title="+"
+                    onPress={() => {props.updateControl(1)}}
+                  />
+                  <Button
+                    title="-"
+                    onPress={() => {props.updateControl(-1)}}
+                  />
+                </View>
+              </View>
             </View>
-            <View style={styles.descriptionBox}>
-                <Text style={styles.descriptionText}>
-                    {renderControlSpaces()}
+        );
+      }
+
+    return(        
+        <View style={{flex: 1,
+            flexDirection: "row",
+            justifyContent: 'center', 
+            alignItems: 'center'}}>
+            {renderPlusMinus()}
+            <View style={[styles.playerCard, {backgroundColor: "green"}]}>
+                <Text style={styles.nameText}>
+                    {props.name}
                 </Text>
+                <View style={styles.descriptionBox}>
+                    <Text style={styles.descriptionText}>
+                        {props.description}
+                    </Text>
+                </View>
+                <View style={styles.descriptionBox}>
+                    <Text style={styles.descriptionText}>
+                        {renderControlSpaces()}
+                    </Text>
+                </View>
             </View>
         </View>
+        
     );
 }
 

@@ -8,7 +8,7 @@ import {
   View
 } from 'react-native';
 import Player from '../components/Player';
-import {GetEmptyCardData, createDarkArtsDeck, createDeck, nullFunction, shuffleCards} from '../lib/UtilityFunctions';
+import {GetEmptyCardData, UpdateBoundedNumber, createDarkArtsDeck, createDeck, nullFunction, shuffleCards} from '../lib/UtilityFunctions';
 import { CardProps } from '../models/CardProps';
 import Store from '../components/Store';
 import Cards from '../lib/Cards';
@@ -30,9 +30,10 @@ const GamePage = ({ route, navigation}) => {
     
     const charactersJson = Characters.data;
     const charactersData = charactersJson.characters;
-    const locations = CreateLocations();
+    const [locations, setLocations] = useState(CreateLocations());
     const [turnCount, setTurnCount] = useState(1);
     const [currentPlayer, setCurrentPlayer] = useState(0);
+    const [currentLocation, setCurrentLocation] = useState(0);
     const [players, setPlayers] = useState(SetupPlayers(characters));
     const [store, setStore] = useState(CreateStore(year));
     const [darkArtsCards, setDarkArtsCards] = useState(CreateDarkArtsCards(year));
@@ -148,7 +149,7 @@ const GamePage = ({ route, navigation}) => {
             onPress={() => {setGameDetailsVisible(true)}}
           />
           <Store drawPile={store.drawPile} shelf={store.shelf} credit={GetCurrentPlayer()?.influence ?? 0} drawFn={addToShelf} acquireFn={acquireCard}></Store>
-          {locations.map((location : LocationProps) => renderLocation(location))}
+          {renderLocation(locations[currentLocation])}
           <View style={{ 
                     flex: 1, 
                     flexWrap: "wrap", 
@@ -193,19 +194,16 @@ const GamePage = ({ route, navigation}) => {
     }
 
     function UpdateAllHeroesHealth(delta: number){
-      players.map((player) => player.health = getNewHealth(player.health, delta));
+      players.map((player) => player.health = UpdateBoundedNumber(10, 0, delta, player.health));
       forceUpdate();
     }
 
-    function getNewHealth(currentHealth: number, delta: number){
-      let newHealth = currentHealth + delta;
-      if(newHealth > 10){
-        return 10;
-      }
-      if(newHealth < 0){
-        return 0;
-      }
-      return newHealth;
+    function UpdateVillainControl(delta: number){
+      let location = locations[currentLocation];
+      console.log(JSON.stringify(location));
+      console.log(UpdateBoundedNumber(location.controlAmount, 0, delta, location.controlTaken));
+      locations[currentLocation].controlTaken = UpdateBoundedNumber(location.controlAmount, 0, delta, location.controlTaken);
+      forceUpdate();
     }
 
     function UpdateAllHeroesInfluence(delta: number){
@@ -372,7 +370,7 @@ const GamePage = ({ route, navigation}) => {
           order : element.order,
           total : element.total,
           controlTaken : 0,
-          updateControl : nullFunction
+          updateControl : UpdateVillainControl
         }
         locations.push(location);
       }

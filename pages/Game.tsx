@@ -8,8 +8,7 @@ import {
   View
 } from 'react-native';
 import Player from '../components/Player';
-import {GetEmptyCardData, UpdateBoundedNumber, createDarkArtsDeck, createDeck, nullFunction, shuffleCards} from '../lib/UtilityFunctions';
-import { CardProps } from '../models/CardProps';
+import {GetEmptyCardData, UpdateBoundedNumber, createDarkArtsDeck, createDeck, shuffleCards} from '../lib/UtilityFunctions';
 import Store from '../components/Store';
 import Cards from '../lib/Cards';
 import GameDetailsModal from '../components/GameDetailsModal';
@@ -95,7 +94,7 @@ const GamePage = ({ route, navigation}) => {
           order={location.order}
           total={location.total}
           controlTaken={location.controlTaken}
-          updateControl={location.updateControl}
+          updateControl={UpdateVillainControl} //send like this so the current state of the game is sent during rendering and the callback will work properly
         />
       );
     }
@@ -149,7 +148,7 @@ const GamePage = ({ route, navigation}) => {
             onPress={() => {setGameDetailsVisible(true)}}
           />
           <Store drawPile={store.drawPile} shelf={store.shelf} credit={GetCurrentPlayer()?.influence ?? 0} drawFn={addToShelf} acquireFn={acquireCard}></Store>
-          {renderLocation(locations[currentLocation])}
+          {renderLocation(GetCurrentLocation())}
           <View style={{ 
                     flex: 1, 
                     flexWrap: "wrap", 
@@ -193,16 +192,18 @@ const GamePage = ({ route, navigation}) => {
       return player.character.name == GetCurrentPlayerName();
     }
 
-    function UpdateAllHeroesHealth(delta: number){
-      players.map((player) => player.health = UpdateBoundedNumber(10, 0, delta, player.health));
-      forceUpdate();
+    function GetCurrentLocation(){
+      return locations[currentLocation];
     }
 
     function UpdateVillainControl(delta: number){
-      let location = locations[currentLocation];
-      console.log(JSON.stringify(location));
-      console.log(UpdateBoundedNumber(location.controlAmount, 0, delta, location.controlTaken));
-      locations[currentLocation].controlTaken = UpdateBoundedNumber(location.controlAmount, 0, delta, location.controlTaken);
+      let location = GetCurrentLocation();
+      location.controlTaken = UpdateBoundedNumber(location.controlAmount, 0, delta, location.controlTaken);
+      forceUpdate();
+    }
+
+    function UpdateAllHeroesHealth(delta: number){
+      players.map((player) => player.health = UpdateBoundedNumber(10, 0, delta, player.health));
       forceUpdate();
     }
 
@@ -268,6 +269,16 @@ const GamePage = ({ route, navigation}) => {
         for(let i = 0; i < difference; i++){
           addToShelf();
         }
+      }
+
+      let location = GetCurrentLocation();
+      //Move to next location if this has become controlled by Villains
+      if (location.controlAmount == location.controlTaken){
+        if(currentLocation + 1 == locations.length){
+          ToastAndroid.showWithGravity("Villains control everything! Game Over!", ToastAndroid.LONG, ToastAndroid.CENTER);
+          navigation.popToTop();
+        }
+        setCurrentLocation(currentLocation + 1);
       }
 
       setTurnCount(turnCount+1);

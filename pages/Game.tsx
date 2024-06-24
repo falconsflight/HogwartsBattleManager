@@ -314,6 +314,13 @@ const GamePage = ({ route, navigation}) => {
       }
       let finalDeck = shuffleCards(deck.flat());
       let shelf : CardData[] = [];
+      i=0;
+      for(;i < shelfLimit; i++){
+        let card = finalDeck.pop();
+        if (card != undefined){
+          shelf.push(card);
+        }
+      }
       return {drawPile: finalDeck, shelf: shelf};
     }
 

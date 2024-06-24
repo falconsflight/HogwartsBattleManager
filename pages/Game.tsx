@@ -8,7 +8,7 @@ import {
   View
 } from 'react-native';
 import Player from '../components/Player';
-import {GetEmptyCardData, createDarkArtsDeck, createDeck, shuffleCards} from '../lib/UtilityFunctions';
+import {GetEmptyCardData, createDarkArtsDeck, createDeck, nullFunction, shuffleCards} from '../lib/UtilityFunctions';
 import { CardProps } from '../models/CardProps';
 import Store from '../components/Store';
 import Cards from '../lib/Cards';
@@ -20,6 +20,8 @@ import DarkArtsCard from '../components/DarkArtsCard';
 import AcquireCardModal from '../components/AcquireCardModal';
 import { gameStyle } from '../lib/GameStyle';
 import Characters from '../lib/Characters';
+import { LocationProps } from '../models/LocationProps';
+import Location from '../components/Location';
 
 const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
@@ -28,6 +30,7 @@ const GamePage = ({ route, navigation}) => {
     
     const charactersJson = Characters.data;
     const charactersData = charactersJson.characters;
+    const locations = CreateLocations();
     const [turnCount, setTurnCount] = useState(1);
     const [currentPlayer, setCurrentPlayer] = useState(0);
     const [players, setPlayers] = useState(SetupPlayers(characters));
@@ -82,6 +85,20 @@ const GamePage = ({ route, navigation}) => {
         );
     }
 
+    const renderLocation = (location: Readonly<LocationProps>) => {
+      return(
+        <Location 
+          name={location.name}
+          controlAmount={location.controlAmount}
+          description={location.description}
+          order={location.order}
+          total={location.total}
+          controlTaken={location.controlTaken}
+          updateControl={location.updateControl}
+        />
+      );
+    }
+
     const renderAllHeroesButtons = () => {
       return (
         <View style={{flexDirection: 'row'}}>
@@ -131,6 +148,7 @@ const GamePage = ({ route, navigation}) => {
             onPress={() => {setGameDetailsVisible(true)}}
           />
           <Store drawPile={store.drawPile} shelf={store.shelf} credit={GetCurrentPlayer()?.influence ?? 0} drawFn={addToShelf} acquireFn={acquireCard}></Store>
+          {locations.map((location : LocationProps) => renderLocation(location))}
           <View style={{ 
                     flex: 1, 
                     flexWrap: "wrap", 
@@ -140,6 +158,7 @@ const GamePage = ({ route, navigation}) => {
                     alignItems: 'center'
                 }
             }>
+          
           <Pressable onPress={() => drawDarkArtsCard()}>
           {renderDarkArtsCard({name: "Dark Arts Deck", description: "Click to draw\n"+darkArtsCards.drawPile.length, id: "darkArtsDraw", count: 1})}
           </Pressable>
@@ -333,6 +352,24 @@ const GamePage = ({ route, navigation}) => {
         updateInfluence: UpdateInfluence
       };
       return player;
+    }
+
+    function CreateLocations(){
+      let input = Cards.locations[year];
+      let locations : LocationProps[] = [];
+      for(const element of input){
+        let location : LocationProps = {
+          name : element.name,
+          controlAmount : element.controlAmount,
+          description : element.description,
+          order : element.order,
+          total : element.total,
+          controlTaken : 0,
+          updateControl : nullFunction
+        }
+        locations.push(location);
+      }
+      return locations;
     }
 
     function drawPlayerCard(characterId : number){

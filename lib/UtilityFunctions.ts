@@ -69,6 +69,19 @@ export function GetEmptyCardData(){
   return card;
 }
 
+export function UpdateBoundedNumber(ceiling : number, floor: number, delta: number, current: number){
+  let newValue = current + delta;
+  if(newValue > ceiling){
+    return ceiling;
+  }
+  else if(newValue < floor){
+    return floor;
+  }
+  else{
+    return newValue;
+  }
+}
+
 export function nullFunction(){
   
 }

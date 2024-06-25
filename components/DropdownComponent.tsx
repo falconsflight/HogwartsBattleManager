@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
+import * as Colors from '../lib/Colors'
 
 const DropdownComponent = ({data, dropdownLabel, setSelection}) => {
     const [value, setValue] = useState(null);
@@ -9,7 +10,7 @@ const DropdownComponent = ({data, dropdownLabel, setSelection}) => {
     const renderLabel = () => {
       if (value || isFocus) {
         return (
-          <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+          <Text style={[styles.label, {color: Colors.LightBlack}, isFocus && { color: 'blue' }]}>
             {dropdownLabel}
           </Text>
         );
@@ -23,6 +24,7 @@ const DropdownComponent = ({data, dropdownLabel, setSelection}) => {
         <Dropdown
           style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
           placeholderStyle={styles.placeholderStyle}
+          itemTextStyle={{color: Colors.LightBlack}}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
@@ -64,6 +66,7 @@ const DropdownComponent = ({data, dropdownLabel, setSelection}) => {
     },
     label: {
       position: 'absolute',
+      color: Colors.LightBlack,
       backgroundColor: 'white',
       left: 22,
       top: 8,
@@ -73,9 +76,11 @@ const DropdownComponent = ({data, dropdownLabel, setSelection}) => {
     },
     placeholderStyle: {
       fontSize: 16,
+      color: Colors.LightBlack
     },
     selectedTextStyle: {
       fontSize: 16,
+      color: Colors.LightBlack,
     },
     iconStyle: {
       width: 20,

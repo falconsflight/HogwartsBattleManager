@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CheckBoxProps } from '../models/CheckBoxProps';
+import * as Colors from '../lib/Colors'
 
 const CheckBox = (props: CheckBoxProps) => {
     return (
@@ -38,7 +39,8 @@ const CheckBox = (props: CheckBoxProps) => {
     checkboxText: {
         fontFamily: "Georgia, serif",
         fontSize: 16,
-        paddingLeft: 5
+        paddingLeft: 5,
+        color: Colors.LightBlack
     },
     checkboxView: {
         flex: 1,

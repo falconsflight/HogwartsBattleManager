@@ -1,0 +1,38 @@
+{
+    "1": {
+        "name": "Diary",
+        "description": "Each time a Hero plays an Ally, that Hero loses 1 ❤️.",
+        "toDestroy": "❤️ or 🔲",
+        "reward": "If you play two or more Allies, any one Hero gains 2 ❤️."
+    },
+    "2": {
+        "name": "Ring",
+        "description": "Whenever a Hero assigns 2 or more ⚡ to a Villain, that Hero loses 2 ❤️.",
+        "toDestroy": "⚡ or 🪙",
+        "reward": "Once per turn, you may discard two cards.\nIf you do, remove 1 🛑 from the Location."
+    },
+    "3": {
+        "name": "Locket",
+        "description": "Heroes cannot gain ⚡ or 🪙 on other Heroes' turns.",
+        "toDestroy": "⚡ & ❤️",
+        "reward": "Once per turn, you may discard a card.\nIf you do, roll the 🟩 Die."
+    },
+    "4": {
+        "name": "Cup",
+        "description": "At the start of each turn, remove 1 ⚡ from all Villains.",
+        "toDestroy": "❤️ & 🪙",
+        "reward": "Once per turn, you may discard a card.\nIf you do, roll the 🟨 Die."
+    },
+    "5": {
+        "name": "Diadem",
+        "description": "At the start of each turn, if the Active Hero has at least one Ally, Item and Spell in hand, that Hero loses 2 ❤️.",
+        "toDestroy": "🔲 & ⚡",
+        "reward": "Once per turn, you may discard a card.\nIf you do, roll the 🟦 Die."
+    },
+    "6": {
+        "name": "Nagini",
+        "description": "At the start of each turn, Active Heroe loses 1 ❤️ and cannot gain ❤️ this turn.",
+        "toDestroy": "⚡ & 🔲 & ❤️",
+        "reward": "Once per game, you may discard this to remove 3 🛑 from the Location."
+    }
+}

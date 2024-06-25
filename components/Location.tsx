@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, Pressable } from 'react-native'
 import * as Colors from '../lib/Colors'
 import { LocationProps } from '../models/LocationProps';
+import { gameStyle } from '../lib/GameStyle';
 
 const Location = (props: LocationProps) => {
 
@@ -18,31 +19,17 @@ const Location = (props: LocationProps) => {
         );
     }
 
-    const renderPlusMinus = () => {
-        return (
-          <View style={{flexDirection: 'row'}}>
-              <View>
-                <View style={{flex: 1, flexDirection: "row"}}>
-                  <Button
-                    title="+"
-                    onPress={() => {props.updateControl(1)}}
-                  />
-                  <Button
-                    title="-"
-                    onPress={() => {props.updateControl(-1)}}
-                  />
-                </View>
-              </View>
-            </View>
-        );
-      }
-
     return(        
         <View style={{flex: 1,
-            flexDirection: "row",
+            flexDirection: "column",
             justifyContent: 'center', 
             alignItems: 'center'}}>
-            {renderPlusMinus()}
+            <Text style={gameStyle.text}>Press: Add Control</Text>
+            <Text style={gameStyle.text}>Press and Hold: Remove Control</Text>
+            <Pressable
+            onPress={() => props.updateControl(1)}
+            onLongPress={() => props.updateControl(-1)}
+            >
             <View style={[styles.playerCard, {backgroundColor: "green"}]}>
                 <Text style={styles.nameText}>
                     {props.name}
@@ -58,6 +45,7 @@ const Location = (props: LocationProps) => {
                     </Text>
                 </View>
             </View>
+            </Pressable>
         </View>
         
     );

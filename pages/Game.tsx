@@ -29,13 +29,13 @@ const GamePage = ({ route, navigation}) => {
     
     const charactersJson = Characters.data;
     const charactersData = charactersJson.characters;
-    const [locations, setLocations] = useState(CreateLocations());
+    const [locations] = useState(CreateLocations());
     const [turnCount, setTurnCount] = useState(1);
     const [currentPlayer, setCurrentPlayer] = useState(0);
     const [currentLocation, setCurrentLocation] = useState(0);
-    const [players, setPlayers] = useState(SetupPlayers(characters));
-    const [store, setStore] = useState(CreateStore(year));
-    const [darkArtsCards, setDarkArtsCards] = useState(CreateDarkArtsCards(year));
+    const [players] = useState(SetupPlayers(characters));
+    const [store] = useState(CreateStore(year));
+    const [darkArtsCards] = useState(CreateDarkArtsCards(year));
     const [gameDetailsVisible, setGameDetailsVisible] = useState(false);
     const [acquireCardModalVisible, setAcquireCardModalVisible] = useState(false);
     const [acquiredCard, setAcquiredCard] = useState(GetEmptyCardData());
@@ -340,8 +340,8 @@ const GamePage = ({ route, navigation}) => {
         deck.push(createDarkArtsDeck(Cards.darkArtsCards[i]))
       }
       let finalDeck = shuffleCards(deck.flat());
-      
-      return {drawPile: finalDeck, discardPile: []};
+      let discardPile : CardData[] = [];
+      return {drawPile: finalDeck, discardPile: discardPile};
     }
 
     function SetupPlayers(characters: number[]){
@@ -455,13 +455,19 @@ const GamePage = ({ route, navigation}) => {
 
   function drawDarkArtsCard(){
     if(darkArtsCards.drawPile.length > 0){
-      darkArtsCards.discardPile.push(darkArtsCards.drawPile.pop());
+      let card = darkArtsCards.drawPile.pop();
+      if(card != undefined){
+        darkArtsCards.discardPile.push(card);
+      }
     }else{
         if(darkArtsCards.discardPile.length < 1){
             console.log("Unable to draw because draw and discard piles are empty");
         }else{
             restoreDarkArtsDeck();
-            darkArtsCards.discardPile.push(darkArtsCards.drawPile.pop());
+            let card = darkArtsCards.drawPile.pop();
+            if(card != undefined){
+              darkArtsCards.discardPile.push(card);
+            }
           }
     }
     forceUpdate();

@@ -3,11 +3,13 @@ import {
   Text,
   View,
   Button,
-  StyleSheet
+  StyleSheet,
+  ToastAndroid
 } from 'react-native';
 import DropdownComponent from '../components/DropdownComponent';
 import CheckBox from '../components/CheckBox';
 import Characters from '../lib/Characters';
+import * as Colors  from '../lib/Colors';
 
 function SetupPage({ navigation }) {
     const [checkBoxSelected, setCheckBoxSelected] = useState([]);
@@ -37,10 +39,14 @@ function SetupPage({ navigation }) {
             <Button
             title="Play"
             onPress={() => {
-                navigation.navigate('Game', {
-                    characters: checkBoxSelected,
-                    year: year
-                });
+                if(checkBoxSelected.length > 0){
+                    navigation.navigate('Game', {
+                        characters: checkBoxSelected,
+                        year: year
+                    });
+                }else{
+                    ToastAndroid.showWithGravity("Please select a character.", ToastAndroid.SHORT, ToastAndroid.CENTER);
+                }
             }}
             />
         </View>
@@ -60,7 +66,8 @@ const styles = StyleSheet.create({
         fontFamily: "Georgia, serif",
         fontSize:20,
         fontWeight: 'bold',
-        paddingLeft: 5
+        paddingLeft: 5,
+        color: Colors.LightBlack
     }
   });
 

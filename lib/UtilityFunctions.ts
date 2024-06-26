@@ -46,7 +46,7 @@ export function createDarkArtsDeck(cards: DarkArtsData[]){
   return returnDeck;
 };
 
-export function shuffleCards(deck: CardData[]){
+export function shuffleCards(deck: any){
     let i = deck.length - 1;
     for (; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));

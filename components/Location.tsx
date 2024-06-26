@@ -24,8 +24,8 @@ const Location = (props: LocationProps) => {
             flexDirection: "column",
             justifyContent: 'center', 
             alignItems: 'center'}}>
-            <Text style={gameStyle.text}>Press: Add Control</Text>
-            <Text style={gameStyle.text}>Press and Hold: Remove Control</Text>
+            <Text style={gameStyle.text}>Press: Add 🛑</Text>
+            <Text style={gameStyle.text}>Press and Hold: Remove 🛑</Text>
             <Pressable
             onPress={() => props.updateControl(1)}
             onLongPress={() => props.updateControl(-1)}

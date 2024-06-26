@@ -29,11 +29,22 @@ const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
     const playerCount = characters.length;
     const shelfLimit = 6;
+    const villainLimit = [
+      {year: 1, value: 1},
+      {year: 2, value: 1},
+      {year: 3, value: 2},
+      {year: 4, value: 2},
+      {year: 5, value: 3},
+      {year: 6, value: 3},
+      {year: 7, value: 3},
+  ];
     
     const charactersJson = Characters.data;
     const charactersData = charactersJson.characters;
     const [locations] = useState(CreateLocations());
     const [villains] = useState(CreateVillains(year));
+    const [activeVillains, setActiveVillains] = useState([]);
+    const [defeatedVillains] = useState([]);
     const [turnCount, setTurnCount] = useState(1);
     const [currentPlayer, setCurrentPlayer] = useState(0);
     const [currentLocation, setCurrentLocation] = useState(0);
@@ -144,6 +155,13 @@ const GamePage = ({ route, navigation}) => {
       );
     }
 
+    const renderVillains = () => {
+      if(activeVillains.length == 0){
+        UpdateActiveVillains();
+      }
+      return activeVillains.map((villain : VillainProps) => renderVillain(villain));
+    }
+
     const renderVillain = (villain : VillainProps) => {
       return (
         <Villain
@@ -181,7 +199,7 @@ const GamePage = ({ route, navigation}) => {
           </View>
           <Text style={gameStyle.text}>Press: Add ⚡</Text>
           <Text style={gameStyle.text}>Press and Hold: Remove ⚡</Text>
-          {villains.map((villain : VillainProps) => renderVillain(villain))}
+          {renderVillains()}
           {renderAllHeroesButtons()}
           <Button
             title={"End Turn #"+turnCount}
@@ -240,6 +258,7 @@ const GamePage = ({ route, navigation}) => {
 
     function UpdateVillainHealth(villainId: string, delta: number){
       let villain = findVillain(villainId);
+      console.log(villainId + " " + villain.villain.health + " " + villain.attacks)
       if(villain != undefined){
         villain.attacks = UpdateBoundedNumber(villain.villain.health, 0, delta, villain.attacks)
         forceUpdate();
@@ -255,7 +274,7 @@ const GamePage = ({ route, navigation}) => {
     }
 
     function findVillain(villainId: string){
-      return villains.find((villain : VillainProps) => villain.id == villainId);
+      return activeVillains.find((villain : VillainProps) => villain.id == villainId);
     }
 
     function findPlayer(characterId: number){
@@ -305,13 +324,26 @@ const GamePage = ({ route, navigation}) => {
       //Move to next location if this has become controlled by Villains
       if (location.controlAmount == location.controlTaken){
         if(currentLocation + 1 == locations.length){
-          ToastAndroid.showWithGravity("Villains control everything! Game Over!", ToastAndroid.LONG, ToastAndroid.CENTER);
-          navigation.popToTop();
+          EndGame("Villains control everything! Game Over!");
         }
         setCurrentLocation(currentLocation + 1);
       }
 
+      let newDefeatedVillain = activeVillains.filter((villain : VillainProps) => villain.attacks == villain.villain.health);
+      if(newDefeatedVillain != undefined){
+        setActiveVillains(activeVillains.filter((villain : VillainProps) => villain.attacks != villain.villain.health));
+        defeatedVillains.push(newDefeatedVillain);
+        if(villains.length == 0){
+          EndGame("You win! You've defeated all the Villains!");
+        }
+      }
+
       setTurnCount(turnCount+1);
+    }
+
+    function EndGame(message : string){
+      ToastAndroid.showWithGravity(message, ToastAndroid.LONG, ToastAndroid.CENTER);
+      navigation.popToTop();
     }
 
     function addToShelf(){
@@ -436,6 +468,13 @@ const GamePage = ({ route, navigation}) => {
         villains.push(villain);
       }
       return villains;
+    }
+
+    function UpdateActiveVillains(){
+      let count = villainLimit[year-1].value;
+      if(activeVillains.length < count){
+        activeVillains.push(villains.pop());
+      }
     }
 
     function drawPlayerCard(characterId : number){

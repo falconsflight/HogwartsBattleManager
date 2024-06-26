@@ -8,7 +8,7 @@ import {
   View
 } from 'react-native';
 import Player from '../components/Player';
-import {GetEmptyCardData, UpdateBoundedNumber, createDarkArtsDeck, createDeck, shuffleCards} from '../lib/UtilityFunctions';
+import {GetEmptyCardData, UpdateBoundedNumber, createDarkArtsDeck, createDeck, nullFunction, shuffleCards} from '../lib/UtilityFunctions';
 import Store from '../components/Store';
 import Cards from '../lib/Cards';
 import GameDetailsModal from '../components/GameDetailsModal';
@@ -21,6 +21,9 @@ import { gameStyle } from '../lib/GameStyle';
 import Characters from '../lib/Characters';
 import { LocationProps } from '../models/LocationProps';
 import Location from '../components/Location';
+import { VillainData } from '../models/VillainData';
+import { VillainProps } from '../models/VillainProps';
+import Villain from '../components/Villain';
 
 const GamePage = ({ route, navigation}) => {
     const { characters, year } = route.params;
@@ -30,6 +33,7 @@ const GamePage = ({ route, navigation}) => {
     const charactersJson = Characters.data;
     const charactersData = charactersJson.characters;
     const [locations] = useState(CreateLocations());
+    const [villains] = useState(CreateVillains(year));
     const [turnCount, setTurnCount] = useState(1);
     const [currentPlayer, setCurrentPlayer] = useState(0);
     const [currentLocation, setCurrentLocation] = useState(0);
@@ -139,6 +143,17 @@ const GamePage = ({ route, navigation}) => {
           </View>
       );
     }
+
+    const renderVillain = (villain : VillainProps) => {
+      return (
+        <Villain
+        id={villain.id}
+        villain={villain.villain}
+        attacks={villain.attacks}
+        healthFn={UpdateVillainHealth}
+        />
+      );
+    }
     
     return (
       <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -164,6 +179,9 @@ const GamePage = ({ route, navigation}) => {
           </Pressable>
           {renderDarkArts(darkArtsCards.discardPile)}
           </View>
+          <Text style={gameStyle.text}>Press: Add ⚡</Text>
+          <Text style={gameStyle.text}>Press and Hold: Remove ⚡</Text>
+          {villains.map((villain : VillainProps) => renderVillain(villain))}
           {renderAllHeroesButtons()}
           <Button
             title={"End Turn #"+turnCount}
@@ -220,12 +238,24 @@ const GamePage = ({ route, navigation}) => {
       forceUpdate();
     }
 
+    function UpdateVillainHealth(villainId: string, delta: number){
+      let villain = findVillain(villainId);
+      if(villain != undefined){
+        villain.attacks = UpdateBoundedNumber(villain.villain.health, 0, delta, villain.attacks)
+        forceUpdate();
+      }
+    }
+
     function UpdateInfluence(characterId: number, newValue: number){
       let player = findPlayer(characterId);
       if(player != undefined){
         player.influence = newValue; 
       }
       forceUpdate();
+    }
+
+    function findVillain(villainId: string){
+      return villains.find((villain : VillainProps) => villain.id == villainId);
     }
 
     function findPlayer(characterId: number){
@@ -386,6 +416,26 @@ const GamePage = ({ route, navigation}) => {
         locations.push(location);
       }
       return locations;
+    }
+
+    function CreateVillains(year: number){
+      let villains : VillainProps[] = [];
+      let villainsData : VillainData[][] = [];
+      for(let i = 1;i <= year; i++){
+        villainsData.push(Cards.villains[i])
+      }
+      let villainsDataResult = shuffleCards(villainsData.flat());
+
+      for(const element of villainsDataResult){
+        let villain : VillainProps = {
+          id : element.name,
+          villain : element,
+          attacks : 0,
+          healthFn : nullFunction
+        }
+        villains.push(villain);
+      }
+      return villains;
     }
 
     function drawPlayerCard(characterId : number){

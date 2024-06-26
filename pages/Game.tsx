@@ -157,7 +157,7 @@ const GamePage = ({ route, navigation}) => {
 
     const renderVillains = () => {
       if(activeVillains.length == 0){
-        UpdateActiveVillains();
+        setActiveVillains(UpdateActiveVillains([]));
       }
       return activeVillains.map((villain : VillainProps) => renderVillain(villain));
     }
@@ -199,6 +199,7 @@ const GamePage = ({ route, navigation}) => {
           </View>
           <Text style={gameStyle.text}>Press: Add ⚡</Text>
           <Text style={gameStyle.text}>Press and Hold: Remove ⚡</Text>
+          <Text style={gameStyle.text}>Villains remaining: {villains.length}</Text>
           {renderVillains()}
           {renderAllHeroesButtons()}
           <Button
@@ -258,7 +259,6 @@ const GamePage = ({ route, navigation}) => {
 
     function UpdateVillainHealth(villainId: string, delta: number){
       let villain = findVillain(villainId);
-      console.log(villainId + " " + villain.villain.health + " " + villain.attacks)
       if(villain != undefined){
         villain.attacks = UpdateBoundedNumber(villain.villain.health, 0, delta, villain.attacks)
         forceUpdate();
@@ -331,14 +331,21 @@ const GamePage = ({ route, navigation}) => {
 
       let newDefeatedVillain = activeVillains.filter((villain : VillainProps) => villain.attacks == villain.villain.health);
       if(newDefeatedVillain != undefined){
-        setActiveVillains(activeVillains.filter((villain : VillainProps) => villain.attacks != villain.villain.health));
         defeatedVillains.push(newDefeatedVillain);
-        if(villains.length == 0){
+        if(AllVillainsDefeated()){
           EndGame("You win! You've defeated all the Villains!");
+        }else{
+          let newVillains = UpdateActiveVillains(activeVillains.filter((villain : VillainProps) => villain.attacks != villain.villain.health));
+          setActiveVillains(newVillains);
         }
       }
 
       setTurnCount(turnCount+1);
+    }
+
+    function AllVillainsDefeated(){
+      let hasActiveVillain = activeVillains.filter((villain : VillainProps) => villain.attacks != villain.villain.health)
+      return villains.length == 0 && hasActiveVillain.length == 0;
     }
 
     function EndGame(message : string){
@@ -470,11 +477,17 @@ const GamePage = ({ route, navigation}) => {
       return villains;
     }
 
-    function UpdateActiveVillains(){
+    //pass in villain list, update, return or set
+    function UpdateActiveVillains(currentVillains : VillainProps[]){
       let count = villainLimit[year-1].value;
-      if(activeVillains.length < count){
-        activeVillains.push(villains.pop());
+      let currentVillainCount = currentVillains.length;
+      let newActiveVillains = currentVillains;
+      if(currentVillainCount < count && villains.length > 0){
+        for(let i = 0; i < (count - currentVillainCount); i++){
+          newActiveVillains.push(villains.pop());
+        }
       }
+      return newActiveVillains;
     }
 
     function drawPlayerCard(characterId : number){

@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native'
 import * as Colors from '../lib/Colors'
 import { GameDetailsProps } from '../models/GameDetailsProps';
+import { gameStyle } from '../lib/GameStyle';
 
 const GameDetailsModal = (props: GameDetailsProps) => {
     let modalVisible = props.isVisible;
@@ -16,18 +17,18 @@ const GameDetailsModal = (props: GameDetailsProps) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
           <View>
-            <Text style={{textAlign: "center", fontSize: 25}}>Game Details</Text>
-            <Text>Your selected characters are: {props.characters}</Text>
-            <Text>Your selected year is: {props.year}</Text>
-            <Text style={{textDecorationLine: "underline"}}>Legend:</Text>
-            <Text>❤️: Heart</Text>
-            <Text>⚡: Attack token</Text>
-            <Text>🪙: Influence token</Text>
-            <Text>🛑: Villan Control token</Text>
-            <Text>🟥: Gryfinndor Die</Text>
-            <Text>🟩: Syltherin Die</Text>
-            <Text>🟦: Ravenclaw Die</Text>
-            <Text>🟨: Hufflepuff Die</Text>
+          <Text style={[ gameStyle.text, {textAlign: "center", fontSize: 25}]}>Game Details</Text>
+            <Text style={gameStyle.text}>Your selected characters are: {props.characters}</Text>
+            <Text style={gameStyle.text}>Your selected year is: {props.year}</Text>
+            <Text style={ [gameStyle.text, {textDecorationLine: "underline"}]}>Legend:</Text>
+            <Text style={gameStyle.text}>❤️: Heart</Text>
+            <Text style={gameStyle.text}>⚡: Attack token</Text>
+            <Text style={gameStyle.text}>🪙: Influence token</Text>
+            <Text style={gameStyle.text}>🛑: Villan Control token</Text>
+            <Text style={gameStyle.text}>🟥: Gryfinndor Die</Text>
+            <Text style={gameStyle.text}>🟩: Syltherin Die</Text>
+            <Text style={gameStyle.text}>🟦: Ravenclaw Die</Text>
+            <Text style={gameStyle.text}>🟨: Hufflepuff Die</Text>
           </View>
             <Pressable
               style={[styles.button, styles.buttonClose]}

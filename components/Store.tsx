@@ -6,6 +6,7 @@ import { CardData } from '../models/CardData';
 import TouchableCard from './TouchableCard';
 import { nullFunction } from '../lib/UtilityFunctions';
 import Card from './Card';
+import { gameStyle } from '../lib/GameStyle';
 
 const Store = (props: StoreProps) => {
     let drawPile = props.drawPile;
@@ -30,8 +31,8 @@ const Store = (props: StoreProps) => {
         <View style={[styles.playerBoard,{ flex: 1, flexWrap: "wrap", flexDirection: "column", padding: 10, justifyContent: 'center', alignItems: 'center'}]}>
             <View style={{flex:1}}>
             <Text style={styles.title}>Store</Text>
-            <Text>(Only 6 Cards allowed)</Text>
-            <Text>Store Credit: 🪙 {props.credit}</Text>
+            <Text style={gameStyle.text}>(Only 6 Cards allowed)</Text>
+            <Text style={gameStyle.text}>Store Credit: 🪙 {props.credit}</Text>
             </View>
             <View style={{flex:1}}>
             <Button

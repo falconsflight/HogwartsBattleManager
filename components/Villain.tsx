@@ -7,36 +7,38 @@ const Villain = (props: VillainProps) => {
 
     return(  
         <View style={{flex: 1,
-            flexDirection: "column",
+            flexDirection: "row",
             justifyContent: 'center', 
             alignItems: 'center'}}>
             <View style={{flex: 1,
-                flexDirection: "row",
+                flexDirection: "column",
                 justifyContent: 'center', 
                 alignItems: 'center'}}>
                 <Text style={gameStyle.tokenText}>❤️ {props.villain.health}</Text>
                 <Text style={gameStyle.tokenText}>⚡ {props.attacks}</Text>
             </View>
-            <Pressable
-            onPress={() => props.healthFn(props.id, 1)}
-            onLongPress={() => props.healthFn(props.id, -1)}
-            >
-            <View style={[styles.playerCard, {backgroundColor: Colors.LightBlack}]}>
-                <Text style={styles.nameText}>
-                    {props.villain.name}
-                </Text>
-                <View style={styles.descriptionBox}>
-                    <Text style={styles.descriptionText}>
-                        {props.villain.ability}
+            <View style={{flex: 3}}>
+                <Pressable
+                onPress={() => props.healthFn(props.id, 1)}
+                onLongPress={() => props.healthFn(props.id, -1)}
+                >
+                <View style={[styles.playerCard, {backgroundColor: Colors.LightBlack}]}>
+                    <Text style={styles.nameText}>
+                        {props.villain.name}
                     </Text>
+                    <View style={styles.descriptionBox}>
+                        <Text style={styles.descriptionText}>
+                            {props.villain.ability}
+                        </Text>
+                    </View>
+                    <View style={styles.descriptionBox}>
+                        <Text style={styles.descriptionText}>
+                            {props.villain.reward}
+                        </Text>
+                    </View>
                 </View>
-                <View style={styles.descriptionBox}>
-                    <Text style={styles.descriptionText}>
-                        {props.villain.reward}
-                    </Text>
-                </View>
+                </Pressable>
             </View>
-            </Pressable>
         </View>
     );
 }
